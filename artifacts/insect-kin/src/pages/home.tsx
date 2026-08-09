@@ -1,12 +1,12 @@
 import { type ReactNode, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
-// We'll import these when they exist
 import heroEstate from '@assets/generated_images/hero-estate.jpg';
 import stairwell from '@assets/generated_images/stairwell.jpg';
 import asphalt from '@assets/generated_images/asphalt.jpg';
 import windowImg from '@assets/generated_images/window.jpg';
 import dragonfly from '@assets/generated_images/dragonfly.jpg';
+import coverImage from '@assets/insect-kin_2_1786244795412.jpg';
 
 function FadeIn({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
   return (
@@ -48,8 +48,8 @@ export default function Home() {
       {/* 1. HERO */}
       <section className="relative h-[100dvh] w-full flex items-center justify-center border-b border-border">
         <div className="absolute inset-0 z-0">
-          <ParallaxImage src={heroEstate} alt="Ashbrook Court at night" className="w-full h-full opacity-40 grayscale-[0.2]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+          <ParallaxImage src={heroEstate} alt="Ashbrook Court at night" className="w-full h-full opacity-30 grayscale" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         </div>
         
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-4xl mx-auto">
@@ -58,16 +58,25 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 2, ease: "easeOut" }}
           >
-            <h1 className="text-5xl md:text-8xl font-bold tracking-tighter text-white mb-6 uppercase">
+            <h1 className="text-6xl md:text-9xl font-serif tracking-wide text-zinc-100 mb-4 uppercase">
               Insect Kin
             </h1>
           </motion.div>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            transition={{ duration: 2, delay: 0.5 }}
+          >
+            <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase mb-8">
+              Matthew Tait
+            </p>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 2, delay: 1 }}
           >
-            <p className="text-xl md:text-2xl text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl font-sans text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">
               The horror is already here. It has simply learned how to hide inside the ordinary.
             </p>
           </motion.div>
@@ -78,10 +87,23 @@ export default function Home() {
             transition={{ duration: 2, delay: 2.5 }}
             className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
           >
-            <span className="text-xs uppercase tracking-widest text-muted-foreground">Scroll</span>
+            <span className="font-sans text-xs uppercase tracking-widest text-muted-foreground">Scroll</span>
             <div className="w-[1px] h-12 bg-gradient-to-b from-muted-foreground to-transparent" />
           </motion.div>
         </div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 2, delay: 1.5 }}
+          className="absolute bottom-6 right-6 md:bottom-12 md:right-12 z-20"
+        >
+          <img 
+            src={coverImage} 
+            alt="Insect Kin Cover" 
+            className="w-[120px] md:w-[180px] lg:w-[220px] shadow-[0_10px_30px_rgba(0,0,0,0.8)] border border-border/50" 
+          />
+        </motion.div>
       </section>
 
       {/* 2. THE BLURB */}
@@ -90,26 +112,26 @@ export default function Home() {
           <FadeIn>
             <div className="mb-12">
               <div className="h-[1px] w-12 bg-primary mb-8" />
-              <p className="text-sm uppercase tracking-widest text-primary font-semibold">
+              <p className="text-sm font-sans uppercase tracking-widest text-primary font-semibold">
                 A claustrophobic supernatural horror novella from award-winning author Matthew Tait.
               </p>
             </div>
           </FadeIn>
           
           <FadeIn delay={0.2}>
-            <p className="text-2xl md:text-4xl font-light leading-snug text-foreground mb-8">
+            <p className="text-3xl md:text-5xl font-serif italic leading-snug text-foreground mb-8">
               At the height of a global pandemic, Lucas and Vanessa awake in darkness.
             </p>
           </FadeIn>
           
           <FadeIn delay={0.4}>
-            <p className="text-lg md:text-2xl text-muted-foreground font-light leading-relaxed mb-12">
+            <p className="text-lg md:text-2xl font-sans text-muted-foreground font-light leading-relaxed mb-12">
               They've been stolen from their lives and dumped inside Ashbrook Court – an abandoned social housing estate in Adelaide long since left to rot. As memories return and the body count rises, they begin to uncover the truth about Ashbrook Court.
             </p>
           </FadeIn>
 
           <FadeIn delay={0.6}>
-            <p className="text-3xl md:text-5xl font-bold text-white tracking-tight">
+            <p className="text-4xl md:text-6xl font-serif italic text-primary tracking-wide">
               Something is waiting.
             </p>
           </FadeIn>
@@ -128,9 +150,9 @@ export default function Home() {
           </FadeIn>
           <div className="flex flex-col justify-center">
             <FadeIn>
-              <h2 className="text-sm uppercase tracking-widest text-muted-foreground mb-4">01 // The Estate</h2>
-              <h3 className="text-4xl md:text-5xl font-bold mb-8 text-white">Ashbrook Court</h3>
-              <div className="space-y-6 text-lg text-muted-foreground font-light leading-relaxed">
+              <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">ASHBROOK COURT — UNIT 01</h2>
+              <h3 className="text-4xl md:text-5xl font-serif font-medium tracking-wide mb-8 text-white">Ashbrook Court</h3>
+              <div className="space-y-6 text-lg font-sans text-muted-foreground font-light leading-relaxed">
                 <p>
                   Ageing apartment blocks. Concrete, brick, asphalt. Corridors that smell of damp and cheap cleaning chemicals.
                 </p>
@@ -154,9 +176,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="order-2 lg:order-1 flex flex-col justify-center">
             <FadeIn>
-              <h2 className="text-sm uppercase tracking-widest text-muted-foreground mb-4">02 // The Wrongness</h2>
-              <h3 className="text-4xl md:text-5xl font-bold mb-8 text-white">3:00 AM</h3>
-              <div className="space-y-6 text-lg text-muted-foreground font-light leading-relaxed">
+              <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">NOTICE — LEVEL 3</h2>
+              <h3 className="text-4xl md:text-5xl font-serif font-medium tracking-wide mb-8 text-white">3:00 AM</h3>
+              <div className="space-y-6 text-lg font-sans text-muted-foreground font-light leading-relaxed">
                 <p>
                   Feels like walking through a housing estate at 3am when you can't sleep. Everything is exactly where it should be. The bins are out. The lights are on in some windows. The concrete is wet.
                 </p>
@@ -192,8 +214,8 @@ export default function Home() {
       <section className="py-32 px-6 bg-background">
         <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
           <FadeIn>
-            <h2 className="text-sm uppercase tracking-widest text-accent mb-4 font-semibold">03 // The Hive</h2>
-            <h3 className="text-4xl md:text-6xl font-bold mb-16 text-white tracking-tight">Something is hatching</h3>
+            <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-4">INCIDENT REPORT — SECTOR 7</h2>
+            <h3 className="text-4xl md:text-6xl font-serif font-medium tracking-wide mb-16 text-white">Something is hatching</h3>
           </FadeIn>
           
           <div className="w-full max-w-4xl mb-16">
@@ -207,7 +229,7 @@ export default function Home() {
           </div>
 
           <FadeIn delay={0.4}>
-            <p className="text-xl md:text-2xl text-muted-foreground font-light max-w-3xl leading-relaxed">
+            <p className="text-xl md:text-2xl font-sans text-muted-foreground font-light max-w-3xl leading-relaxed">
               They are not decorative. They are not beautiful. They watch from the rusted railings and the peeling stairwells. The hum of insects you can't quite locate. The sickening iridescence under a bare bulb.
             </p>
           </FadeIn>
@@ -218,28 +240,38 @@ export default function Home() {
       <section className="py-48 px-6 bg-card border-t border-border relative flex flex-col items-center text-center overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-background to-background pointer-events-none" />
         
-        <div className="relative z-10">
+        <div className="relative z-10 max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24">
           <FadeIn>
-            <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 uppercase tracking-tighter">
-              Insect Kin
-            </h2>
-            <p className="text-xl text-muted-foreground mb-12 font-light">
-              Available now. Don't look away.
-            </p>
-            <a 
-              href="#" 
-              className="inline-block bg-primary text-primary-foreground font-bold text-lg uppercase tracking-widest px-12 py-5 hover:bg-white hover:text-black transition-colors duration-300 border border-transparent hover:border-white"
-            >
-              Get the Book
-            </a>
+            <img 
+              src={coverImage} 
+              alt="Insect Kin Cover" 
+              className="w-full max-w-[240px] md:max-w-xs shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-border/30"
+            />
+          </FadeIn>
+          
+          <FadeIn delay={0.2}>
+            <div className="flex flex-col items-center md:items-start text-center md:text-left">
+              <h2 className="text-5xl md:text-7xl font-serif tracking-wide text-white mb-6 uppercase">
+                Insect Kin
+              </h2>
+              <p className="text-xl font-sans text-muted-foreground mb-12 font-light">
+                Available now. Don't look away.
+              </p>
+              <a 
+                href="#" 
+                className="inline-block bg-primary text-primary-foreground font-mono text-sm uppercase tracking-[0.2em] px-12 py-5 hover:bg-white hover:text-black transition-colors duration-300 border border-transparent hover:border-white"
+              >
+                Get the Book
+              </a>
+            </div>
           </FadeIn>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="py-12 px-6 border-t border-border text-center text-sm text-muted-foreground font-light">
-        <p>© {new Date().getFullYear()} Matthew Tait. All rights reserved.</p>
-        <p className="mt-2 opacity-50">The horror is already here.</p>
+      <footer className="py-12 px-6 border-t border-border text-center text-sm font-sans text-muted-foreground font-light">
+        <p className="font-mono text-xs uppercase tracking-[0.2em]">© {new Date().getFullYear()} Matthew Tait. All rights reserved.</p>
+        <p className="mt-4 opacity-50">The horror is already here.</p>
       </footer>
 
     </main>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
 
 @import 'tailwindcss';
 @import 'tw-animate-css';
@@ -75,26 +75,26 @@
   --popover-foreground: 40 10% 75%;
   --popover-border: 220 15% 15%;
 
-  /* Sick yellow */
-  --primary: 55 60% 50%;
-  --primary-foreground: 222 30% 7%;
+  /* Blood red */
+  --primary: 4 76% 40%;
+  --primary-foreground: 40 15% 94%;
 
-  /* Oxidised metal */
-  --secondary: 15 40% 40%;
+  /* Dark steel grey */
+  --secondary: 220 15% 18%;
   --secondary-foreground: 40 10% 85%;
 
   --muted: 220 15% 12%;
   --muted-foreground: 40 5% 55%;
 
-  /* Iridescent green */
-  --accent: 160 30% 30%;
+  /* Darker muted red */
+  --accent: 4 50% 25%;
   --accent-foreground: 40 10% 85%;
 
   --destructive: 0 60% 40%;
   --destructive-foreground: 40 10% 85%;
 
   --input: 220 15% 15%;
-  --ring: 55 60% 50%;
+  --ring: 4 76% 40%;
   
   --chart-1: 55 60% 50%;
   --chart-2: 15 40% 40%;
@@ -111,9 +111,9 @@
   --sidebar-accent-foreground: 40 10% 75%;
   --sidebar-ring: 55 60% 50%;
 
-  --app-font-sans: 'Public Sans', sans-serif;
-  --app-font-serif: Georgia, serif;
-  --app-font-mono: Menlo, monospace;
+  --app-font-sans: 'IBM Plex Sans', sans-serif;
+  --app-font-serif: 'Cormorant Garamond', serif;
+  --app-font-mono: 'IBM Plex Mono', monospace;
   --radius: 0rem; /* Brutalist sharp edges */
   
   --shadow-2xs: 0px 2px 0px 0px rgba(0,0,0, 0.5);
