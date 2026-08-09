@@ -52,13 +52,13 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         </div>
         
-        <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-4xl mx-auto">
+        <div className="relative z-10 flex flex-col items-start text-left px-6 md:pl-16 lg:pl-24 max-w-3xl">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 2, ease: "easeOut" }}
           >
-            <h1 className="text-6xl md:text-9xl font-serif tracking-wide text-zinc-100 mb-4 uppercase">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif tracking-wide text-zinc-100 mb-4 uppercase">
               Insect Kin
             </h1>
           </motion.div>
@@ -76,7 +76,7 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ duration: 2, delay: 1 }}
           >
-            <p className="text-xl md:text-2xl font-sans text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl font-sans text-muted-foreground font-light max-w-2xl leading-relaxed">
               The horror is already here. It has simply learned how to hide inside the ordinary.
             </p>
           </motion.div>
