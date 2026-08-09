@@ -5,6 +5,7 @@ import heroEstate from '@assets/generated_images/hero-estate.jpg';
 import stairwell from '@assets/generated_images/stairwell.jpg';
 import asphalt from '@assets/ChatGPT_Image_Aug_9,_2026,_03_01_38_PM_1786253514550.png';
 import windowImg from '@assets/generated_images/window.jpg';
+import rooftop from '@assets/ChatGPT_Image_Aug_10,_2026,_05_05_14_AM_1786304514365.png';
 import dragonfly from '@assets/ChatGPT_Image_Aug_9,_2026,_03_06_56_PM_1786253850408.png';
 import coverImage from '@assets/insect-kin_2_1786244795412.jpg';
 import authorPhoto from '@assets/Paper_23_1786245757626.jpg';
@@ -327,6 +328,17 @@ export default function Home() {
         <FloatAnim baseRotation={-10} duration={8} delay={3} yRange={14} className="-bottom-16 right-[3%] z-10">
           <DragonflySVG size={150} opacity={0.82} />
         </FloatAnim>
+
+        {/* Full-width rooftop image above the prose */}
+        <div className="max-w-7xl mx-auto mb-16 relative z-10">
+          <FadeIn>
+            <ParallaxImage
+              src={rooftop}
+              alt="The rooftop of Ashbrook Court at night"
+              className="w-full aspect-[21/9] border border-border"
+            />
+          </FadeIn>
+        </div>
 
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
           <div className="order-2 lg:order-1 flex flex-col justify-center">
