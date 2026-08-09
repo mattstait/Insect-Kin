@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "INSECT KIN"
+description = "An immersive literary website for INSECT KIN, a bleak supernatural horror novella by Matthew Tait set on an abandoned Adelaide social-housing estate. The site functions as a place — Ashbrook Court — that feels real and recognisable before becoming profoundly wrong. Central imagery: dragonflies, concrete, decay, infestation."
+version = "1.0.0"
+id = "artifacts/insect-kin"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19196
+
+[services.development]
+run = "pnpm --filter @workspace/insect-kin run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/insect-kin", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/insect-kin/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19196"
+BASE_PATH = "/"
