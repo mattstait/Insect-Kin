@@ -49,8 +49,18 @@ export default function Home() {
       {/* 1. HERO — dark humus base */}
       <section className="relative h-[100dvh] w-full flex items-center justify-center border-b border-border">
         <div className="absolute inset-0 z-0">
-          <ParallaxImage src={heroEstate} alt="Ashbrook Court at night" className="w-full h-full opacity-25 grayscale" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+          <div className="absolute inset-0 overflow-hidden">
+            <ParallaxImage
+              src={heroEstate}
+              alt="Ashbrook Court at night"
+              className="w-full h-full"
+            />
+            {/* Bile-green colour wash */}
+            <div className="absolute inset-0" style={{ backgroundColor: 'hsl(80 55% 10%)', mixBlendMode: 'multiply', opacity: 0.55 }} />
+            {/* Desaturate slightly and push remaining colour to sickly yellow-green */}
+            <div className="absolute inset-0" style={{ backgroundColor: 'transparent', backdropFilter: 'saturate(0.4) hue-rotate(20deg)' }} />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-background/10" />
         </div>
         
         <div className="relative z-10 flex flex-col items-center text-center w-full px-4">
