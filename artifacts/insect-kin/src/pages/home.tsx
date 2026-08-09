@@ -198,13 +198,22 @@ export default function Home() {
               </h3>
               <div className="space-y-6 text-lg font-sans text-muted-foreground font-light leading-relaxed">
                 <p>
-                  Feels like walking through a housing estate at 3am when you can't sleep. Everything is exactly where it should be. The bins are out. The lights are on in some windows. The concrete is wet.
+                  The estate is quiet now.
                 </p>
                 <p>
-                  And something you cannot name has changed.
+                  The windows are dark. The corridors are empty. Weeds have pushed through the concrete and the buildings have begun to surrender to time.
+                </p>
+                <p>
+                  But abandonment is not the same thing as death.
+                </p>
+                <p>
+                  Something remains beneath Ashbrook Court.
+                </p>
+                <p>
+                  Something has survived the silence.
                 </p>
                 <p className="text-foreground font-medium">
-                  The mundane is the threat. Stillness with the slow accumulation of wrongness beneath it.
+                  Something has been growing in the dark.
                 </p>
               </div>
             </FadeIn>
