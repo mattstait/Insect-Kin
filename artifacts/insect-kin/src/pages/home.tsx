@@ -220,6 +220,16 @@ export default function Home() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            transition={{ duration: 2, delay: 1.2 }}
+          >
+            <p className="font-sans italic text-base md:text-lg tracking-wide mt-6"
+               style={{ color: 'hsl(42 20% 62%)' }}>
+              Something is growing beneath Ashbrook Court.
+            </p>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 2, delay: 2.5 }}
             className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
           >
