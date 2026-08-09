@@ -46,11 +46,11 @@ export default function Home() {
   return (
     <main className="bg-background text-foreground min-h-screen overflow-x-hidden selection:bg-primary selection:text-primary-foreground">
       
-      {/* 1. HERO */}
+      {/* 1. HERO — dark humus base */}
       <section className="relative h-[100dvh] w-full flex items-center justify-center border-b border-border">
         <div className="absolute inset-0 z-0">
-          <ParallaxImage src={heroEstate} alt="Ashbrook Court at night" className="w-full h-full opacity-30 grayscale" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+          <ParallaxImage src={heroEstate} alt="Ashbrook Court at night" className="w-full h-full opacity-25 grayscale" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
         </div>
         
         <div className="relative z-10 flex flex-col items-center text-center w-full px-4">
@@ -60,8 +60,9 @@ export default function Home() {
             transition={{ duration: 2, ease: "easeOut" }}
             className="w-full"
           >
-            <h1 className="font-serif tracking-wide text-zinc-100 uppercase leading-none w-full"
-                style={{ fontSize: 'clamp(4rem, 14vw, 16rem)' }}>
+            {/* Warm ivory/parchment — not cold white */}
+            <h1 className="font-serif tracking-wide uppercase leading-none w-full"
+                style={{ fontSize: 'clamp(4rem, 14vw, 16rem)', color: 'hsl(42 30% 88%)' }}>
               Insect Kin
             </h1>
           </motion.div>
@@ -88,13 +89,14 @@ export default function Home() {
         
       </section>
 
-      {/* 2. THE BLURB */}
+      {/* 2. THE BLURB — base background, warmest section */}
       <section className="py-32 md:py-48 px-6 bg-background relative">
         <div className="max-w-3xl mx-auto">
           <FadeIn>
             <div className="mb-12">
-              <div className="h-[1px] w-12 bg-primary mb-8" />
-              <p className="text-sm font-sans uppercase tracking-widest text-primary font-semibold">
+              {/* Ochre rule instead of blood red */}
+              <div className="h-[1px] w-12 mb-8" style={{ backgroundColor: 'hsl(var(--ochre))' }} />
+              <p className="text-sm font-sans uppercase tracking-widest font-semibold" style={{ color: 'hsl(var(--ochre))' }}>
                 A claustrophobic supernatural horror novella from award-winning author Matthew Tait.
               </p>
             </div>
@@ -113,15 +115,19 @@ export default function Home() {
           </FadeIn>
 
           <FadeIn delay={0.6}>
-            <p className="text-4xl md:text-6xl font-serif italic text-primary tracking-wide">
+            {/* Deep crimson for this closing line */}
+            <p className="text-4xl md:text-6xl font-serif italic tracking-wide text-primary">
               Something is waiting.
             </p>
           </FadeIn>
         </div>
       </section>
 
-      {/* 3. ASHBROOK COURT (The Setting) */}
-      <section className="py-24 px-6 border-t border-border">
+      {/* 3. ASHBROOK COURT — mossy forest green-dark */}
+      <section
+        className="py-24 px-6 border-t border-border"
+        style={{ backgroundColor: 'hsl(var(--section-forest))' }}
+      >
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <FadeIn>
             <ParallaxImage 
@@ -132,8 +138,15 @@ export default function Home() {
           </FadeIn>
           <div className="flex flex-col justify-center">
             <FadeIn>
-              <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">ASHBROOK COURT — UNIT 01</h2>
-              <h3 className="text-4xl md:text-5xl font-serif font-medium tracking-wide mb-8 text-white">Ashbrook Court</h3>
+              <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">
+                ASHBROOK COURT — UNIT 01
+              </h2>
+              <h3
+                className="text-4xl md:text-5xl font-serif font-medium tracking-wide mb-8"
+                style={{ color: 'hsl(42 25% 86%)' }}
+              >
+                Ashbrook Court
+              </h3>
               <div className="space-y-6 text-lg font-sans text-muted-foreground font-light leading-relaxed">
                 <p>
                   Ageing apartment blocks. Concrete, brick, asphalt. Corridors that smell of damp and cheap cleaning chemicals.
@@ -150,16 +163,29 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. THE UNCANNY ORDINARY */}
-      <section className="py-32 px-6 bg-card border-y border-border relative overflow-hidden">
-        {/* Subtle background element */}
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none translate-x-1/2 -translate-y-1/2" />
+      {/* 4. 3:00 AM — darkest, most ominous section */}
+      <section
+        className="py-32 px-6 border-y border-border relative overflow-hidden"
+        style={{ backgroundColor: 'hsl(var(--section-ominous))' }}
+      >
+        {/* Barely-there amber bloom in the corner — like a light left on */}
+        <div
+          className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full blur-[140px] pointer-events-none translate-x-1/2 -translate-y-1/3"
+          style={{ backgroundColor: 'hsl(38 40% 18% / 0.5)' }}
+        />
         
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="order-2 lg:order-1 flex flex-col justify-center">
             <FadeIn>
-              <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">NOTICE — LEVEL 3</h2>
-              <h3 className="text-4xl md:text-5xl font-serif font-medium tracking-wide mb-8 text-white">3:00 AM</h3>
+              <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">
+                NOTICE — LEVEL 3
+              </h2>
+              <h3
+                className="text-4xl md:text-5xl font-serif font-medium tracking-wide mb-8"
+                style={{ color: 'hsl(42 22% 82%)' }}
+              >
+                3:00 AM
+              </h3>
               <div className="space-y-6 text-lg font-sans text-muted-foreground font-light leading-relaxed">
                 <p>
                   Feels like walking through a housing estate at 3am when you can't sleep. Everything is exactly where it should be. The bins are out. The lights are on in some windows. The concrete is wet.
@@ -192,12 +218,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. THE THREAT (Dragonflies) */}
-      <section className="py-32 px-6 bg-background">
+      {/* 5. SOMETHING IS HATCHING — deep forest floor */}
+      <section
+        className="py-32 px-6"
+        style={{ backgroundColor: 'hsl(var(--section-deep))' }}
+      >
         <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
           <FadeIn>
-            <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-accent mb-4">INCIDENT REPORT — SECTOR 7</h2>
-            <h3 className="text-4xl md:text-6xl font-serif font-medium tracking-wide mb-16 text-white">Something is hatching</h3>
+            {/* Iridescent teal label — insect wing */}
+            <h2
+              className="font-mono text-xs uppercase tracking-[0.2em] mb-4"
+              style={{ color: 'hsl(var(--iridescent))' }}
+            >
+              INCIDENT REPORT — SECTOR 7
+            </h2>
+            <h3
+              className="text-4xl md:text-6xl font-serif font-medium tracking-wide mb-16"
+              style={{ color: 'hsl(42 25% 86%)' }}
+            >
+              Something is hatching
+            </h3>
           </FadeIn>
           
           <div className="w-full max-w-4xl mb-16">
@@ -218,8 +258,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. AUTHOR */}
-      <section className="py-24 md:py-36 px-6 border-t border-border bg-background">
+      {/* 6. AUTHOR — warm earthy tone */}
+      <section
+        className="py-24 md:py-36 px-6 border-t border-border"
+        style={{ backgroundColor: 'hsl(var(--section-warm))' }}
+      >
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <FadeIn>
             <div className="relative">
@@ -235,8 +278,15 @@ export default function Home() {
           </FadeIn>
           <div className="flex flex-col justify-start lg:pt-4">
             <FadeIn>
-              <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">About the Author</h2>
-              <h3 className="text-3xl md:text-4xl font-serif font-medium tracking-wide mb-8 text-zinc-100">Matthew Tait</h3>
+              <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">
+                About the Author
+              </h2>
+              <h3
+                className="text-3xl md:text-4xl font-serif font-medium tracking-wide mb-8"
+                style={{ color: 'hsl(42 28% 86%)' }}
+              >
+                Matthew Tait
+              </h3>
               <div className="space-y-5 font-sans text-base md:text-lg text-muted-foreground font-light leading-relaxed">
                 <p>
                   Matthew Tait is an award-winning Australian horror author whose work blends psychological intensity with uncanny, brutal atmosphere. He published his first collection of dark fiction in 2011 and has since built a catalogue of titles praised for their originality and emotional depth.
@@ -256,22 +306,34 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. CALL TO ACTION */}
-      <section className="py-48 px-6 bg-card border-t border-border relative flex flex-col items-center text-center overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-background to-background pointer-events-none" />
+      {/* 7. CALL TO ACTION — rust-tinged dark */}
+      <section
+        className="py-48 px-6 border-t border-border relative flex flex-col items-center text-center overflow-hidden"
+        style={{ backgroundColor: 'hsl(var(--section-rust))' }}
+      >
+        {/* Rust bloom radiating from centre */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at center, hsl(8 40% 14% / 0.8) 0%, transparent 70%)'
+          }}
+        />
         
         <div className="relative z-10 max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24">
           <FadeIn>
             <img 
               src={coverImage} 
               alt="Insect Kin Cover" 
-              className="w-full max-w-[240px] md:max-w-xs shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-border/30"
+              className="w-full max-w-[240px] md:max-w-xs shadow-[0_20px_50px_rgba(0,0,0,0.6)] border border-border/30"
             />
           </FadeIn>
           
           <FadeIn delay={0.2}>
             <div className="flex flex-col items-center md:items-start text-center md:text-left">
-              <h2 className="text-5xl md:text-7xl font-serif tracking-wide text-white mb-6 uppercase">
+              <h2
+                className="text-5xl md:text-7xl font-serif tracking-wide mb-6 uppercase"
+                style={{ color: 'hsl(42 28% 86%)' }}
+              >
                 Insect Kin
               </h2>
               <p className="text-xl font-sans text-muted-foreground mb-12 font-light">
@@ -282,7 +344,7 @@ export default function Home() {
                   href="https://www.amazon.com.au/Insect-Kin-Matthew-Tait/dp/B0G4GZLPTM/ref=tmm_pap_swatch_0"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block bg-primary text-primary-foreground font-mono text-sm uppercase tracking-[0.2em] px-10 py-5 hover:bg-white hover:text-black transition-colors duration-300 border border-transparent hover:border-white"
+                  className="inline-block bg-primary text-primary-foreground font-mono text-sm uppercase tracking-[0.2em] px-10 py-5 hover:bg-foreground hover:text-background transition-colors duration-300 border border-transparent hover:border-border"
                 >
                   Paperback
                 </a>
@@ -290,7 +352,7 @@ export default function Home() {
                   href="https://www.amazon.com.au/Insect-Kin-Matthew-Tait-ebook/dp/B0G47SQVG2/?_encoding=UTF8&pd_rd_w=myzgf&content-id=amzn1.sym.7153b2d3-487c-46f2-9cd8-b060e652f2e8&pf_rd_p=7153b2d3-487c-46f2-9cd8-b060e652f2e8&pf_rd_r=355-7962748-1400305&pd_rd_wg=vDNLQ&pd_rd_r=f63a9248-af4f-4647-acb6-09becc57e6fd"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block bg-transparent text-foreground font-mono text-sm uppercase tracking-[0.2em] px-10 py-5 border border-border hover:border-white hover:text-white transition-colors duration-300"
+                  className="inline-block bg-transparent text-foreground font-mono text-sm uppercase tracking-[0.2em] px-10 py-5 border border-border hover:border-foreground hover:text-foreground transition-colors duration-300"
                 >
                   eBook
                 </a>
@@ -301,7 +363,7 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer className="py-12 px-6 border-t border-border text-center text-sm font-sans text-muted-foreground font-light">
+      <footer className="py-12 px-6 border-t border-border text-center text-sm font-sans text-muted-foreground font-light bg-background">
         <p className="font-mono text-xs uppercase tracking-[0.2em]">© {new Date().getFullYear()} Matthew Tait. All rights reserved.</p>
         <p className="mt-4 opacity-50">The horror is already here.</p>
       </footer>
