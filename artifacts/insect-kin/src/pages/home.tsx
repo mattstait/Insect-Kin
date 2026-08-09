@@ -83,18 +83,6 @@ export default function Home() {
           </motion.div>
         </div>
         
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 2, delay: 1.5 }}
-          className="absolute bottom-6 right-6 md:bottom-12 md:right-12 z-20"
-        >
-          <img 
-            src={coverImage} 
-            alt="Insect Kin Cover" 
-            className="w-[120px] md:w-[180px] lg:w-[220px] shadow-[0_10px_30px_rgba(0,0,0,0.8)] border border-border/50" 
-          />
-        </motion.div>
       </section>
 
       {/* 2. THE BLURB */}
