@@ -71,15 +71,6 @@ export default function Home() {
               Matthew Tait
             </p>
           </motion.div>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2, delay: 1 }}
-          >
-            <p className="text-xl md:text-2xl font-sans text-muted-foreground font-light max-w-2xl leading-relaxed">
-              The horror is already here. It has simply learned how to hide inside the ordinary.
-            </p>
-          </motion.div>
           
           <motion.div 
             initial={{ opacity: 0 }}
