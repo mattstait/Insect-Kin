@@ -279,13 +279,17 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
-                  href="#"
+                  href="https://www.amazon.com.au/Insect-Kin-Matthew-Tait/dp/B0G4GZLPTM/ref=tmm_pap_swatch_0"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-block bg-primary text-primary-foreground font-mono text-sm uppercase tracking-[0.2em] px-10 py-5 hover:bg-white hover:text-black transition-colors duration-300 border border-transparent hover:border-white"
                 >
                   Paperback
                 </a>
                 <a
-                  href="#"
+                  href="https://www.amazon.com.au/Insect-Kin-Matthew-Tait-ebook/dp/B0G47SQVG2/?_encoding=UTF8&pd_rd_w=myzgf&content-id=amzn1.sym.7153b2d3-487c-46f2-9cd8-b060e652f2e8&pf_rd_p=7153b2d3-487c-46f2-9cd8-b060e652f2e8&pf_rd_r=355-7962748-1400305&pd_rd_wg=vDNLQ&pd_rd_r=f63a9248-af4f-4647-acb6-09becc57e6fd"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-block bg-transparent text-foreground font-mono text-sm uppercase tracking-[0.2em] px-10 py-5 border border-border hover:border-white hover:text-white transition-colors duration-300"
                 >
                   eBook
