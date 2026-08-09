@@ -277,12 +277,20 @@ export default function Home() {
               <p className="text-xl font-sans text-muted-foreground mb-12 font-light">
                 Available now. Don't look away.
               </p>
-              <a 
-                href="#" 
-                className="inline-block bg-primary text-primary-foreground font-mono text-sm uppercase tracking-[0.2em] px-12 py-5 hover:bg-white hover:text-black transition-colors duration-300 border border-transparent hover:border-white"
-              >
-                Get the Book
-              </a>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a
+                  href="#"
+                  className="inline-block bg-primary text-primary-foreground font-mono text-sm uppercase tracking-[0.2em] px-10 py-5 hover:bg-white hover:text-black transition-colors duration-300 border border-transparent hover:border-white"
+                >
+                  Paperback
+                </a>
+                <a
+                  href="#"
+                  className="inline-block bg-transparent text-foreground font-mono text-sm uppercase tracking-[0.2em] px-10 py-5 border border-border hover:border-white hover:text-white transition-colors duration-300"
+                >
+                  eBook
+                </a>
+              </div>
             </div>
           </FadeIn>
         </div>
