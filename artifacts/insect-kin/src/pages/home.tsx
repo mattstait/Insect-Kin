@@ -7,6 +7,7 @@ import asphalt from '@assets/generated_images/asphalt.jpg';
 import windowImg from '@assets/generated_images/window.jpg';
 import dragonfly from '@assets/generated_images/dragonfly.jpg';
 import coverImage from '@assets/insect-kin_2_1786244795412.jpg';
+import authorPhoto from '@assets/Paper_23_1786245757626.jpg';
 
 function FadeIn({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
   return (
@@ -52,13 +53,15 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
         </div>
         
-        <div className="relative z-10 flex flex-col items-start text-left px-6 md:pl-16 lg:pl-24 max-w-3xl">
+        <div className="relative z-10 flex flex-col items-center text-center w-full px-4">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.97 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 2, ease: "easeOut" }}
+            className="w-full"
           >
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif tracking-wide text-zinc-100 mb-4 uppercase">
+            <h1 className="font-serif tracking-wide text-zinc-100 uppercase leading-none w-full"
+                style={{ fontSize: 'clamp(4rem, 14vw, 16rem)' }}>
               Insect Kin
             </h1>
           </motion.div>
@@ -67,7 +70,7 @@ export default function Home() {
             animate={{ opacity: 1 }}
             transition={{ duration: 2, delay: 0.5 }}
           >
-            <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase mb-8">
+            <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground uppercase mt-4">
               Matthew Tait
             </p>
           </motion.div>
@@ -215,7 +218,45 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. CALL TO ACTION */}
+      {/* 6. AUTHOR */}
+      <section className="py-24 md:py-36 px-6 border-t border-border bg-background">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <FadeIn>
+            <div className="relative">
+              <img
+                src={authorPhoto}
+                alt="Matthew Tait"
+                className="w-full max-w-sm grayscale contrast-110 border border-border/40 shadow-[0_20px_60px_rgba(0,0,0,0.6)]"
+              />
+              <p className="font-mono text-xs tracking-[0.2em] text-muted-foreground uppercase mt-4">
+                Matthew Tait — Adelaide, South Australia
+              </p>
+            </div>
+          </FadeIn>
+          <div className="flex flex-col justify-start lg:pt-4">
+            <FadeIn>
+              <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">About the Author</h2>
+              <h3 className="text-3xl md:text-4xl font-serif font-medium tracking-wide mb-8 text-zinc-100">Matthew Tait</h3>
+              <div className="space-y-5 font-sans text-base md:text-lg text-muted-foreground font-light leading-relaxed">
+                <p>
+                  Matthew Tait is an award-winning Australian horror author whose work blends psychological intensity with uncanny, brutal atmosphere. He published his first collection of dark fiction in 2011 and has since built a catalogue of titles praised for their originality and emotional depth.
+                </p>
+                <p>
+                  His novel <em className="text-foreground font-normal">Deception Pass</em> won the Australasian Shadows Award for Best Novel, an honour for which he has been nominated three times. His short story <em className="text-foreground font-normal">Car Crash Weather</em> received a commendation from the Australian Horror Writers Association in 2006.
+                </p>
+                <p>
+                  A former horror columnist and lifelong devotee of the genre, Tait writes every draft longhand — in pen and paper — before any manuscript touches a keyboard. A working method that has shaped the deliberate, sentence-level attention his prose is known for.
+                </p>
+                <p>
+                  He lives and writes in Adelaide, South Australia, and is currently undertaking a full ground-up rewrite of his 2014 novel <em className="text-foreground font-normal">Davey Ribbon</em>.
+                </p>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. CALL TO ACTION */}
       <section className="py-48 px-6 bg-card border-t border-border relative flex flex-col items-center text-center overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-background to-background pointer-events-none" />
         
