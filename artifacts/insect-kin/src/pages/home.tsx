@@ -5,7 +5,7 @@ import heroEstate from '@assets/generated_images/hero-estate.jpg';
 import stairwell from '@assets/generated_images/stairwell.jpg';
 import asphalt from '@assets/ChatGPT_Image_Aug_9,_2026,_03_01_38_PM_1786253514550.png';
 import windowImg from '@assets/generated_images/window.jpg';
-import dragonfly from '@assets/generated_images/dragonfly.jpg';
+import dragonfly from '@assets/ChatGPT_Image_Aug_9,_2026,_03_06_56_PM_1786253850408.png';
 import coverImage from '@assets/insect-kin_2_1786244795412.jpg';
 import authorPhoto from '@assets/Paper_23_1786245757626.jpg';
 
