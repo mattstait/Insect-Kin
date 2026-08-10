@@ -184,11 +184,11 @@ export default function Home() {
         </div>
 
         {/* Insects — hero */}
-        {/* Large dragonfly hovering upper-right over the building */}
-        <FloatAnim baseRotation={-18} duration={8} delay={0} yRange={16} className="top-[8%] right-[-2%] z-20">
+        {/* Large dragonfly hovering upper-right — hidden on mobile to avoid text overlap */}
+        <FloatAnim baseRotation={-18} duration={8} delay={0} yRange={16} className="top-[8%] right-[-2%] z-20 hidden sm:block">
           <DragonflySVG size={240} opacity={0.90} />
         </FloatAnim>
-        {/* Small dragonfly, lower-left */}
+        {/* Small dragonfly, lower-left — kept on mobile, small enough */}
         <FloatAnim baseRotation={30} duration={6} delay={1.5} yRange={10} className="bottom-[20%] left-[4%] z-20">
           <DragonflySVG size={90} opacity={0.80} />
         </FloatAnim>
@@ -204,8 +204,9 @@ export default function Home() {
             transition={{ duration: 2, ease: 'easeOut' }}
             className="w-full"
           >
+            {/* clamp: min 3rem so "INSECT KIN" always fits on mobile; 13vw tracks viewport; max 16rem at desktop */}
             <h1 className="font-serif tracking-wide uppercase leading-none w-full"
-                style={{ fontSize: 'clamp(4rem, 14vw, 16rem)', color: 'hsl(42 30% 88%)' }}>
+                style={{ fontSize: 'clamp(3rem, 13vw, 16rem)', color: 'hsl(42 30% 88%)' }}>
               Insect Kin
             </h1>
           </motion.div>
@@ -241,12 +242,12 @@ export default function Home() {
       </section>
 
       {/* 2. THE BLURB */}
-      <section className="py-32 md:py-48 px-6 bg-background relative">
-        {/* Dragonfly bleeding in from top-right */}
-        <FloatAnim baseRotation={12} duration={9} delay={0.5} yRange={18} className="-top-16 right-[1%] z-10">
+      <section className="py-24 md:py-48 px-6 bg-background relative">
+        {/* Dragonfly bleeding in from top-right — hidden on mobile */}
+        <FloatAnim baseRotation={12} duration={9} delay={0.5} yRange={18} className="-top-16 right-[1%] z-10 hidden sm:block">
           <DragonflySVG size={180} opacity={0.88} />
         </FloatAnim>
-        {/* Tiny fly bottom-left */}
+        {/* Tiny fly bottom-left — kept on mobile */}
         <FloatAnim baseRotation={-25} duration={5.5} delay={2} yRange={8} className="bottom-12 left-[6%] z-10">
           <InsectFlySVG size={34} opacity={0.72} />
         </FloatAnim>
@@ -261,17 +262,17 @@ export default function Home() {
             </div>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <p className="text-3xl md:text-5xl font-serif italic leading-snug text-foreground mb-8">
+            <p className="text-2xl md:text-5xl font-serif italic leading-snug text-foreground mb-8">
               At the height of a global pandemic, Lucas and Vanessa awake in darkness.
             </p>
           </FadeIn>
           <FadeIn delay={0.4}>
-            <p className="text-lg md:text-2xl font-sans text-muted-foreground font-light leading-relaxed mb-12">
+            <p className="text-base md:text-2xl font-sans text-muted-foreground font-light leading-relaxed mb-12">
               They've been stolen from their lives and dumped inside Ashbrook Court – an abandoned social housing estate in Adelaide long since left to rot. As memories return and the body count rises, they begin to uncover the truth about Ashbrook Court.
             </p>
           </FadeIn>
           <FadeIn delay={0.6}>
-            <p className="text-4xl md:text-6xl font-serif italic tracking-wide text-primary">
+            <p className="text-3xl md:text-6xl font-serif italic tracking-wide text-primary">
               Something is waiting.
             </p>
           </FadeIn>
@@ -281,7 +282,7 @@ export default function Home() {
       {/* 3. REVIEWS */}
       <section className="py-24 md:py-32 px-6 border-t border-border relative"
                style={{ backgroundColor: 'hsl(38 10% 7%)' }}>
-        {/* Small insects in the margins */}
+        {/* Small insects in the margins — fine on all screen sizes */}
         <FloatAnim baseRotation={12} duration={7} delay={1} yRange={9} className="top-10 left-6 z-10">
           <InsectFlySVG size={32} opacity={0.68} />
         </FloatAnim>
@@ -299,7 +300,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
             {/* Review 1 */}
             <FadeIn delay={0.1}>
-              <div className="flex flex-col h-full border-l-2 pl-8" style={{ borderColor: 'hsl(var(--primary))' }}>
+              <div className="flex flex-col h-full border-l-2 pl-6 md:pl-8" style={{ borderColor: 'hsl(var(--primary))' }}>
                 <span className="font-serif text-6xl leading-none mb-6" style={{ color: 'hsl(var(--primary))', opacity: 0.6 }}>&ldquo;</span>
                 <p className="font-sans text-base md:text-lg leading-relaxed text-foreground font-normal flex-1">
                   Wyndham's <em>The Day of the Triffids</em> meets Ballard's <em>High-Rise</em> played out in suburban Adelaide. While the title is taken from a song by Bush, this horror story had me hearing <em>Come to Daddy</em> by Aphex Twin accompanied by the fluttering of countless chitin wings. Against the backdrop of the pandemic, Matthew Tait offers us this nightmarish tale set in an abandoned housing estate undergoing a metamorphosis.
@@ -312,7 +313,7 @@ export default function Home() {
 
             {/* Review 2 */}
             <FadeIn delay={0.25}>
-              <div className="flex flex-col h-full border-l-2 pl-8" style={{ borderColor: 'hsl(var(--primary))' }}>
+              <div className="flex flex-col h-full border-l-2 pl-6 md:pl-8" style={{ borderColor: 'hsl(var(--primary))' }}>
                 <span className="font-serif text-6xl leading-none mb-6" style={{ color: 'hsl(var(--primary))', opacity: 0.6 }}>&ldquo;</span>
                 <p className="font-sans text-base md:text-lg leading-relaxed text-foreground font-normal flex-1">
                   Matthew Tait creates his own version of the Candyman in this short but powerful story about a supernatural executioner of Adelaide's social underbelly. Tait draws shades of Bentley Little and Richard Laymon for his violent and gritty tale, which for the most part feels strangely akin to Adelaide's own shocking true crime past.
@@ -331,15 +332,15 @@ export default function Home() {
         className="py-24 px-6 border-t border-border relative"
         style={{ backgroundColor: 'hsl(var(--section-forest))' }}
       >
-        {/* Two small flies in the margins */}
+        {/* Two small flies — fine on mobile */}
         <FloatAnim baseRotation={15} duration={6} delay={0} yRange={7} className="top-16 right-8 z-10">
           <InsectFlySVG size={44} opacity={0.82} />
         </FloatAnim>
         <FloatAnim baseRotation={-35} duration={7} delay={2.5} yRange={9} className="bottom-20 left-10 z-10">
           <InsectFlySVG size={32} opacity={0.70} />
         </FloatAnim>
-        {/* Small dragonfly, right column mid */}
-        <FloatAnim baseRotation={8} duration={8.5} delay={1} yRange={12} className="top-1/2 right-4 z-10">
+        {/* Medium dragonfly mid-right — hidden on mobile, would overlap single-column text */}
+        <FloatAnim baseRotation={8} duration={8.5} delay={1} yRange={12} className="top-1/2 right-4 z-10 hidden sm:block">
           <DragonflySVG size={100} opacity={0.78} />
         </FloatAnim>
 
@@ -353,11 +354,11 @@ export default function Home() {
               <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">
                 ASHBROOK COURT — UNIT 01
               </h2>
-              <h3 className="text-4xl md:text-5xl font-serif font-medium tracking-wide mb-8"
+              <h3 className="text-3xl md:text-5xl font-serif font-medium tracking-wide mb-8"
                   style={{ color: 'hsl(42 25% 86%)' }}>
                 Ashbrook Court
               </h3>
-              <div className="space-y-6 text-lg font-sans text-muted-foreground font-light leading-relaxed">
+              <div className="space-y-6 text-base md:text-lg font-sans text-muted-foreground font-light leading-relaxed">
                 <p>Ageing apartment blocks. Concrete, brick, asphalt. Corridors that smell of damp and cheap cleaning chemicals.</p>
                 <p>This isn't a gothic castle. There are no ancient curses here. Just neglected gardens, rusted fences, and weeds forcing their way through cracked concrete under the oppressive Australian heat.</p>
                 <p>The ordinariness is the trap. The familiar suburban textures are the walls of the cage.</p>
@@ -367,34 +368,34 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. 3:00 AM — most ominous, largest dragonfly */}
+      {/* 5. 3:00 AM — most ominous, largest dragonfly */}
       <section
-        className="py-32 px-6 border-y border-border relative overflow-visible"
+        className="py-20 md:py-32 px-6 border-y border-border relative overflow-visible"
         style={{ backgroundColor: 'hsl(var(--section-ominous))' }}
       >
         <div className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full blur-[140px] pointer-events-none translate-x-1/2 -translate-y-1/3"
              style={{ backgroundColor: 'hsl(38 40% 18% / 0.5)' }} />
 
-        {/* Dominant dragonfly, left edge — the centrepiece of the page's insect drama */}
-        <FloatAnim baseRotation={-28} duration={10} delay={0} yRange={20} rotRange={4} className="top-8 -left-8 z-10">
+        {/* Dominant dragonfly, left edge — hidden on mobile where it covers the prose */}
+        <FloatAnim baseRotation={-28} duration={10} delay={0} yRange={20} rotRange={4} className="top-8 -left-8 z-10 hidden md:block">
           <DragonflySVG size={280} opacity={0.94} />
         </FloatAnim>
-        {/* Small fly, right side */}
+        {/* Small fly, right side — fine on all screens */}
         <FloatAnim baseRotation={20} duration={5} delay={1.8} yRange={7} className="bottom-16 right-10 z-10">
           <InsectFlySVG size={40} opacity={0.78} />
         </FloatAnim>
-        {/* Medium dragonfly, bottom-right bleeding into next section */}
-        <FloatAnim baseRotation={-10} duration={8} delay={3} yRange={14} className="-bottom-16 right-[3%] z-10">
+        {/* Medium dragonfly, bottom-right bleeding into next section — hidden on mobile */}
+        <FloatAnim baseRotation={-10} duration={8} delay={3} yRange={14} className="-bottom-16 right-[3%] z-10 hidden sm:block">
           <DragonflySVG size={150} opacity={0.82} />
         </FloatAnim>
 
         {/* Full-width rooftop image above the prose */}
-        <div className="max-w-7xl mx-auto mb-16 relative z-10">
+        <div className="max-w-7xl mx-auto mb-12 md:mb-16 relative z-10">
           <FadeIn>
             <ParallaxImage
               src={rooftop}
               alt="The rooftop of Ashbrook Court at night"
-              className="w-full aspect-[21/9] border border-border"
+              className="w-full aspect-[16/9] md:aspect-[21/9] border border-border"
             />
           </FadeIn>
         </div>
@@ -403,11 +404,11 @@ export default function Home() {
           <div className="order-2 lg:order-1 flex flex-col justify-center">
             <FadeIn>
               <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-4">NOTICE — LEVEL 3</h2>
-              <h3 className="text-4xl md:text-5xl font-serif font-medium tracking-wide mb-8"
+              <h3 className="text-3xl md:text-5xl font-serif font-medium tracking-wide mb-8"
                   style={{ color: 'hsl(42 22% 82%)' }}>
                 3:00 AM
               </h3>
-              <div className="space-y-6 text-lg font-sans text-muted-foreground font-light leading-relaxed">
+              <div className="space-y-5 md:space-y-6 text-base md:text-lg font-sans text-muted-foreground font-light leading-relaxed">
                 <p>The estate is quiet now.</p>
                 <p>The windows are dark. The corridors are empty. Weeds have pushed through the concrete and the buildings have begun to surrender to time.</p>
                 <p>But abandonment is not the same thing as death.</p>
@@ -430,25 +431,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. SOMETHING IS HATCHING — densest insect section */}
+      {/* 6. SOMETHING IS HATCHING — densest insect section */}
       <section
-        className="py-32 px-6 relative"
+        className="py-24 md:py-32 px-6 relative"
         style={{ backgroundColor: 'hsl(var(--section-deep))' }}
       >
-        {/* Cluster of dragonflies and flies — swarm feeling */}
-        <FloatAnim baseRotation={8} duration={9} delay={0} yRange={18} className="top-10 right-[3%] z-10">
+        {/* Large dragonflies — hidden on mobile, centred text needs breathing room */}
+        <FloatAnim baseRotation={8} duration={9} delay={0} yRange={18} className="top-10 right-[3%] z-10 hidden sm:block">
           <DragonflySVG size={200} opacity={0.92} />
         </FloatAnim>
-        <FloatAnim baseRotation={-20} duration={7} delay={1.2} yRange={14} className="bottom-16 left-[2%] z-10">
+        <FloatAnim baseRotation={-20} duration={7} delay={1.2} yRange={14} className="bottom-16 left-[2%] z-10 hidden sm:block">
           <DragonflySVG size={140} opacity={0.85} />
         </FloatAnim>
-        <FloatAnim baseRotation={40} duration={5} delay={0.8} yRange={8} className="top-1/3 left-[10%] z-10">
+        {/* Interior flies hidden on mobile — they sit over the centred prose */}
+        <FloatAnim baseRotation={40} duration={5} delay={0.8} yRange={8} className="top-1/3 left-[10%] z-10 hidden sm:block">
           <InsectFlySVG size={50} opacity={0.88} />
         </FloatAnim>
-        <FloatAnim baseRotation={-12} duration={4.5} delay={2.5} yRange={6} className="top-1/2 right-[22%] z-10">
+        <FloatAnim baseRotation={-12} duration={4.5} delay={2.5} yRange={6} className="top-1/2 right-[22%] z-10 hidden sm:block">
           <InsectFlySVG size={36} opacity={0.78} />
         </FloatAnim>
-        <FloatAnim baseRotation={25} duration={6} delay={3.5} yRange={10} className="bottom-8 right-[12%] z-10">
+        {/* Bottom-right fly — stays on mobile, well clear of text */}
+        <FloatAnim baseRotation={25} duration={6} delay={3.5} yRange={10} className="bottom-8 right-[8%] z-10">
           <InsectFlySVG size={42} opacity={0.80} />
         </FloatAnim>
 
@@ -458,43 +461,44 @@ export default function Home() {
                 style={{ color: 'hsl(var(--iridescent))' }}>
               INCIDENT REPORT — SECTOR 7
             </h2>
-            <h3 className="text-4xl md:text-6xl font-serif font-medium tracking-wide mb-16"
+            <h3 className="text-3xl md:text-6xl font-serif font-medium tracking-wide mb-12 md:mb-16"
                 style={{ color: 'hsl(42 25% 86%)' }}>
               Something is hatching
             </h3>
           </FadeIn>
-          <div className="w-full max-w-4xl mb-16">
+          <div className="w-full max-w-4xl mb-12 md:mb-16">
             <FadeIn delay={0.2}>
               <ParallaxImage src={dragonfly} alt="A dragonfly on a rusted railing"
-                className="aspect-[21/9] w-full bg-muted border border-border" />
+                className="aspect-[16/9] md:aspect-[21/9] w-full bg-muted border border-border" />
             </FadeIn>
           </div>
           <FadeIn delay={0.4}>
-            <p className="text-xl md:text-2xl font-sans text-muted-foreground font-light max-w-3xl leading-relaxed">
+            <p className="text-lg md:text-2xl font-sans text-muted-foreground font-light max-w-3xl leading-relaxed">
               They are not decorative. They are not beautiful. They watch from the rusted railings and the peeling stairwells. The hum of insects you can't quite locate. The sickening iridescence under a bare bulb.
             </p>
           </FadeIn>
         </div>
       </section>
 
-      {/* 6. AUTHOR */}
+      {/* 7. AUTHOR */}
       <section
         className="py-24 md:py-36 px-6 border-t border-border relative"
         style={{ backgroundColor: 'hsl(var(--section-warm))' }}
       >
-        {/* Subtle presence — one small dragonfly, corner */}
-        <FloatAnim baseRotation={-8} duration={8} delay={1} yRange={11} className="top-10 right-6 z-10">
+        {/* Dragonfly corner — hidden on mobile to avoid overlapping author photo */}
+        <FloatAnim baseRotation={-8} duration={8} delay={1} yRange={11} className="top-10 right-6 z-10 hidden sm:block">
           <DragonflySVG size={108} opacity={0.76} />
         </FloatAnim>
+        {/* Tiny fly — kept on all screens */}
         <FloatAnim baseRotation={30} duration={5.5} delay={0} yRange={7} className="bottom-12 left-8 z-10">
           <InsectFlySVG size={30} opacity={0.68} />
         </FloatAnim>
 
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start relative z-10">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start relative z-10">
           <FadeIn>
             <div className="relative">
               <img src={authorPhoto} alt="Matthew Tait"
-                className="w-full max-w-sm grayscale contrast-110 border border-border/40 shadow-[0_20px_60px_rgba(0,0,0,0.6)]" />
+                className="w-full max-w-xs grayscale contrast-110 border border-border/40 shadow-[0_20px_60px_rgba(0,0,0,0.6)]" />
               <p className="font-mono text-xs tracking-[0.2em] text-muted-foreground uppercase mt-4">
                 Matthew Tait — Adelaide, South Australia
               </p>
@@ -503,7 +507,7 @@ export default function Home() {
           <div className="flex flex-col justify-start lg:pt-4">
             <FadeIn>
               <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">About the Author</h2>
-              <h3 className="text-3xl md:text-4xl font-serif font-medium tracking-wide mb-8"
+              <h3 className="text-2xl md:text-4xl font-serif font-medium tracking-wide mb-8"
                   style={{ color: 'hsl(42 28% 86%)' }}>
                 Matthew Tait
               </h3>
@@ -518,48 +522,49 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. CALL TO ACTION */}
+      {/* 8. CALL TO ACTION */}
       <section
-        className="py-48 px-6 border-t border-border relative flex flex-col items-center text-center overflow-hidden"
+        className="py-32 md:py-48 px-6 border-t border-border relative flex flex-col items-center text-center overflow-hidden"
         style={{ backgroundColor: 'hsl(var(--section-rust))' }}
       >
         <div className="absolute inset-0 pointer-events-none"
              style={{ background: 'radial-gradient(ellipse at center, hsl(8 40% 14% / 0.8) 0%, transparent 70%)' }} />
 
-        {/* Two dragonflies flanking the cover */}
-        <FloatAnim baseRotation={6} duration={9} delay={0} yRange={16} className="top-8 left-[3%] z-10">
+        {/* Flanking dragonflies — hidden on mobile, they'd crowd the cover image */}
+        <FloatAnim baseRotation={6} duration={9} delay={0} yRange={16} className="top-8 left-[3%] z-10 hidden sm:block">
           <DragonflySVG size={160} opacity={0.87} />
         </FloatAnim>
-        <FloatAnim baseRotation={-14} duration={8} delay={2} yRange={13} className="top-16 right-[2%] z-10">
+        <FloatAnim baseRotation={-14} duration={8} delay={2} yRange={13} className="top-16 right-[2%] z-10 hidden sm:block">
           <DragonflySVG size={120} opacity={0.80} />
         </FloatAnim>
+        {/* Small bottom fly — kept on all screens */}
         <FloatAnim baseRotation={18} duration={5} delay={1} yRange={8} className="bottom-16 right-[10%] z-10">
           <InsectFlySVG size={38} opacity={0.74} />
         </FloatAnim>
 
-        <div className="relative z-10 max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24">
+        <div className="relative z-10 max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-10 md:gap-24">
           <FadeIn>
             <img src={coverImage} alt="Insect Kin Cover"
-              className="w-full max-w-[240px] md:max-w-xs shadow-[0_20px_50px_rgba(0,0,0,0.6)] border border-border/30" />
+              className="w-full max-w-[200px] md:max-w-xs shadow-[0_20px_50px_rgba(0,0,0,0.6)] border border-border/30" />
           </FadeIn>
           <FadeIn delay={0.2}>
             <div className="flex flex-col items-center md:items-start text-center md:text-left">
-              <h2 className="text-5xl md:text-7xl font-serif tracking-wide mb-6 uppercase"
+              <h2 className="text-4xl md:text-7xl font-serif tracking-wide mb-4 md:mb-6 uppercase"
                   style={{ color: 'hsl(42 28% 86%)' }}>
                 Insect Kin
               </h2>
-              <p className="text-xl font-sans text-muted-foreground mb-12 font-light">
+              <p className="text-lg md:text-xl font-sans text-muted-foreground mb-8 md:mb-12 font-light">
                 Available now. Don't look away.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                 <a href="https://www.amazon.com.au/Insect-Kin-Matthew-Tait/dp/B0G4GZLPTM/ref=tmm_pap_swatch_0"
                    target="_blank" rel="noopener noreferrer"
-                   className="inline-block bg-primary text-primary-foreground font-mono text-sm uppercase tracking-[0.2em] px-10 py-5 hover:bg-foreground hover:text-background transition-colors duration-300 border border-transparent hover:border-border">
+                   className="inline-block bg-primary text-primary-foreground font-mono text-sm uppercase tracking-[0.2em] px-8 md:px-10 py-4 md:py-5 hover:bg-foreground hover:text-background transition-colors duration-300 border border-transparent hover:border-border text-center">
                   Paperback
                 </a>
                 <a href="https://www.amazon.com.au/Insect-Kin-Matthew-Tait-ebook/dp/B0G47SQVG2/?_encoding=UTF8&pd_rd_w=myzgf&content-id=amzn1.sym.7153b2d3-487c-46f2-9cd8-b060e652f2e8&pf_rd_p=7153b2d3-487c-46f2-9cd8-b060e652f2e8&pf_rd_r=355-7962748-1400305&pd_rd_wg=vDNLQ&pd_rd_r=f63a9248-af4f-4647-acb6-09becc57e6fd"
                    target="_blank" rel="noopener noreferrer"
-                   className="inline-block bg-transparent text-foreground font-mono text-sm uppercase tracking-[0.2em] px-10 py-5 border border-border hover:border-foreground hover:text-foreground transition-colors duration-300">
+                   className="inline-block bg-transparent text-foreground font-mono text-sm uppercase tracking-[0.2em] px-8 md:px-10 py-4 md:py-5 border border-border hover:border-foreground hover:text-foreground transition-colors duration-300 text-center">
                   eBook
                 </a>
               </div>
