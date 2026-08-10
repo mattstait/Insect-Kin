@@ -1,4 +1,4 @@
-import { type ReactNode, useRef } from 'react';
+import { type ReactNode, useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 import heroEstate from '@assets/generated_images/hero-estate.jpg';
@@ -166,14 +166,126 @@ function ParallaxImage({ src, alt, className }: { src: string; alt: string; clas
   );
 }
 
+// ─── Sticky Nav ─────────────────────────────────────────────────────────────
+
+const NAV_LINKS = [
+  { label: 'About',   href: '#about'   },
+  { label: 'Reviews', href: '#reviews' },
+  { label: 'Author',  href: '#author'  },
+  { label: 'Buy',     href: '#buy'     },
+] as const;
+
+function StickyNav() {
+  const [visible, setVisible] = useState(false);
+  const [activeId, setActiveId] = useState('');
+
+  useEffect(() => {
+    const onScroll = () => {
+      // Show nav after 60 % of viewport height has been scrolled past
+      setVisible(window.scrollY > window.innerHeight * 0.6);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Track which section is in view
+  useEffect(() => {
+    const ids = NAV_LINKS.map(l => l.href.slice(1));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Pick the first entry that is intersecting, prioritising the one
+        // closest to the top of the viewport
+        const intersecting = entries
+          .filter(e => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (intersecting.length > 0) {
+          setActiveId(intersecting[0].target.id);
+        }
+      },
+      { rootMargin: '-20% 0px -60% 0px' },
+    );
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  return (
+    <motion.header
+      aria-label="Section navigation"
+      initial={{ opacity: 0, y: -8 }}
+      animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : -8 }}
+      transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+      style={{
+        pointerEvents: visible ? 'auto' : 'none',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        borderBottom: '1px solid hsl(var(--border))',
+        backgroundColor: 'hsl(var(--background) / 0.85)',
+        backdropFilter: 'blur(12px) saturate(0.9)',
+        WebkitBackdropFilter: 'blur(12px) saturate(0.9)',
+      }}
+    >
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-11">
+        {/* Brand mark — left */}
+        <span
+          className="font-mono text-[10px] uppercase tracking-[0.25em] shrink-0"
+          style={{ color: 'hsl(var(--muted-foreground))' }}
+        >
+          Insect Kin
+        </span>
+
+        {/* Links — horizontally scrollable on mobile, static row on desktop */}
+        <div className="flex items-center gap-1 overflow-x-auto no-scrollbar ml-4">
+          {NAV_LINKS.map(({ label, href }) => {
+            const isActive = activeId === href.slice(1);
+            return (
+              <a
+                key={href}
+                href={href}
+                onClick={(e) => handleClick(e, href)}
+                className="shrink-0 font-mono text-[10px] uppercase tracking-[0.22em] px-3 py-1.5 transition-colors duration-200"
+                style={{
+                  color: isActive
+                    ? 'hsl(var(--foreground))'
+                    : 'hsl(var(--muted-foreground))',
+                  borderBottom: isActive
+                    ? '1px solid hsl(var(--primary))'
+                    : '1px solid transparent',
+                }}
+              >
+                {label}
+              </a>
+            );
+          })}
+        </div>
+      </nav>
+    </motion.header>
+  );
+}
+
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export default function Home() {
   return (
+    <>
+    <StickyNav />
     <main className="bg-background text-foreground min-h-screen overflow-x-hidden selection:bg-primary selection:text-primary-foreground">
 
       {/* 1. HERO */}
-      <section className="relative h-[100dvh] w-full flex items-center justify-center border-b border-border">
+      <section id="hero" className="relative h-[100dvh] w-full flex items-center justify-center border-b border-border">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 overflow-hidden">
             <ParallaxImage src={heroEstate} alt="Ashbrook Court at night" className="w-full h-full" />
@@ -248,7 +360,7 @@ export default function Home() {
       </section>
 
       {/* 2. THE BLURB */}
-      <section className="py-24 md:py-48 px-6 bg-background relative">
+      <section id="about" className="py-24 md:py-48 px-6 bg-background relative">
         {/* Dragonfly bleeding in from top-right — hidden on mobile */}
         <FloatAnim baseRotation={12} duration={9} delay={0.5} yRange={18} className="-top-16 right-[1%] z-10 hidden sm:block">
           <DragonflySVG size={180} opacity={0.88} />
@@ -327,7 +439,7 @@ export default function Home() {
       </section>
 
       {/* 4. REVIEWS */}
-      <section className="py-24 md:py-32 px-6 border-t border-border relative"
+      <section id="reviews" className="py-24 md:py-32 px-6 border-t border-border relative"
                style={{ backgroundColor: 'hsl(38 10% 7%)' }}>
         {/* Small insects in the margins — fine on all screen sizes */}
         <FloatAnim baseRotation={12} duration={7} delay={1} yRange={9} className="top-10 left-6 z-10">
@@ -529,6 +641,7 @@ export default function Home() {
 
       {/* 7. AUTHOR */}
       <section
+        id="author"
         className="py-24 md:py-36 px-6 border-t border-border relative"
         style={{ backgroundColor: 'hsl(var(--section-warm))' }}
       >
@@ -571,6 +684,7 @@ export default function Home() {
 
       {/* 8. CALL TO ACTION */}
       <section
+        id="buy"
         className="py-32 md:py-48 px-6 border-t border-border relative flex flex-col items-center text-center overflow-hidden"
         style={{ backgroundColor: 'hsl(var(--section-rust))' }}
       >
@@ -679,5 +793,6 @@ export default function Home() {
       </footer>
 
     </main>
+    </>
   );
 }
