@@ -574,6 +574,25 @@ export default function Home() {
         <FloatAnim baseRotation={-5} duration={10} delay={0} yRange={6} className="top-2 right-8 z-10">
           <InsectFlySVG size={26} opacity={0.55} />
         </FloatAnim>
+        {/* Author links */}
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-3 mb-10 relative z-10">
+          {[
+            { label: 'Official Site', href: 'https://matthewtaitauthor.com/' },
+            { label: 'Goodreads', href: 'https://www.goodreads.com/author/show/5073719.Matthew_Tait' },
+            { label: 'Blog', href: 'https://differentmasks.blogspot.com/' },
+          ].map(({ label, href }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground transition-colors duration-300"
+            >
+              {label}
+            </a>
+          ))}
+        </div>
+
         <p className="font-mono text-xs uppercase tracking-[0.2em] relative z-10">
           © {new Date().getFullYear()} Matthew Tait. All rights reserved.
         </p>
