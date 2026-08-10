@@ -394,6 +394,16 @@ export default function Home() {
               Something is waiting.
             </p>
           </FadeIn>
+          <FadeIn delay={0.8}>
+            <p className="text-2xl md:text-4xl font-serif italic tracking-wide text-primary/70 mt-4">
+              Something that wants to hatch.
+            </p>
+          </FadeIn>
+          <FadeIn delay={1.0}>
+            <p className="mt-8 font-mono text-sm uppercase tracking-[0.25em] text-muted-foreground">
+              INSECT KIN is a descent into isolation, madness, and infestation.
+            </p>
+          </FadeIn>
         </div>
       </section>
 
