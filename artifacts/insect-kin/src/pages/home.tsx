@@ -365,6 +365,33 @@ export default function Home() {
               Something is growing beneath Ashbrook Court.
             </p>
           </motion.div>
+          {/* ── Hero CTA ─────────────────────────────────────────────────── */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.6, delay: 2.2, ease: [0.25, 0.1, 0.25, 1] }}
+            className="mt-10 flex flex-col sm:flex-row items-center gap-3"
+          >
+            <a
+              href="https://www.amazon.com.au/Insect-Kin-Matthew-Tait/dp/B0G4GZLPTM/ref=tmm_pap_swatch_0"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-primary text-primary-foreground font-mono text-xs uppercase tracking-[0.25em] px-8 py-3.5 hover:bg-foreground hover:text-background transition-colors duration-300"
+            >
+              Buy Paperback
+            </a>
+            <a
+              href="#buy"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('buy')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+              className="inline-block bg-transparent text-foreground font-mono text-xs uppercase tracking-[0.25em] px-8 py-3.5 border border-border hover:border-foreground transition-colors duration-300"
+            >
+              All Editions ↓
+            </a>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
