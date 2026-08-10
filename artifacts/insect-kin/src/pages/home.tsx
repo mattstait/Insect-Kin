@@ -279,7 +279,48 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. REVIEWS */}
+      {/* 3. EXCERPT */}
+      <section className="py-24 md:py-32 px-6 border-t border-border relative"
+               style={{ backgroundColor: 'hsl(30 8% 5%)' }}>
+        <FloatAnim x={18} y={-22} duration={9} delay={1}>
+          <div className="absolute top-16 right-12 opacity-40">
+            <DragonflySVG size={90} />
+          </div>
+        </FloatAnim>
+        <div className="max-w-3xl mx-auto">
+          <FadeIn>
+            <p className="font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground mb-10">Excerpt</p>
+          </FadeIn>
+          <FadeIn delay={0.2}>
+            <div className="border-l-2 border-primary pl-8 space-y-5">
+              {[
+                `A naked male was supported by his knees, both hands splayed forward as though in the process of taking a dive.`,
+                `The barrel end of a shotgun protruded from his ass.`,
+                `Staring, it was easy for me to ascertain how death had been delivered. After inserting the gun into his anus, someone had pulled the trigger.`,
+                `If not for the unknown meds in my system, I might have lost it there and then. Because this was the type of thing you heard rumor of, whispers of some mythical gore video.`,
+                `Gore.`,
+                `It took me a few moments to process that particular word was written on a dirty wall above the oven. Written in blood.`,
+                `Another was next to it. The letters still dripping, GORE HOUND was spelled out in this slaughterhouse of an apartment.`,
+                `'That's … I recognize Joseph,' said Vanessa. Despite her initial reaction, there was now a note of calm in her voice.`,
+                `I took a long look at the cadaver and realized she was right. Once upon a time, Joseph O'Brien had also lived within Ashbrook Court. During my own tenure, I recalled exchanging pleasantries with the man. And his reputation was prolific. A casual drug dealer. Someone into obscure pornography. In addition, he possessed a hardcore predilection for real life gore videos.`,
+                `Inside the murky realm of Australian social housing, such personality types were not overly uncommon.`,
+                `The method of death, I noted, was akin to one of the shock videos he enjoyed so much. Unable to look away, I noticed shotgun pellets had — having travelled through his lower extremities — exited through his ribcage.`,
+              ].map((para, i) => (
+                <p key={i} className="font-serif italic text-base md:text-lg leading-relaxed text-foreground/85">
+                  {para}
+                </p>
+              ))}
+            </div>
+          </FadeIn>
+          <FadeIn delay={0.5}>
+            <p className="mt-10 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground/50">
+              Content note: extreme horror. Not for the faint-hearted.
+            </p>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* 4. REVIEWS */}
       <section className="py-24 md:py-32 px-6 border-t border-border relative"
                style={{ backgroundColor: 'hsl(38 10% 7%)' }}>
         {/* Small insects in the margins — fine on all screen sizes */}
