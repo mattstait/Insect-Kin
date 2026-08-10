@@ -556,17 +556,35 @@ export default function Home() {
               <p className="text-lg md:text-xl font-sans text-muted-foreground mb-8 md:mb-12 font-light">
                 Available now. Don't look away.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                <a href="https://www.amazon.com.au/Insect-Kin-Matthew-Tait/dp/B0G4GZLPTM/ref=tmm_pap_swatch_0"
-                   target="_blank" rel="noopener noreferrer"
-                   className="inline-block bg-primary text-primary-foreground font-mono text-sm uppercase tracking-[0.2em] px-8 md:px-10 py-4 md:py-5 hover:bg-foreground hover:text-background transition-colors duration-300 border border-transparent hover:border-border text-center">
-                  Paperback
-                </a>
-                <a href="https://www.amazon.com.au/Insect-Kin-Matthew-Tait-ebook/dp/B0G47SQVG2/?_encoding=UTF8&pd_rd_w=myzgf&content-id=amzn1.sym.7153b2d3-487c-46f2-9cd8-b060e652f2e8&pf_rd_p=7153b2d3-487c-46f2-9cd8-b060e652f2e8&pf_rd_r=355-7962748-1400305&pd_rd_wg=vDNLQ&pd_rd_r=f63a9248-af4f-4647-acb6-09becc57e6fd"
-                   target="_blank" rel="noopener noreferrer"
-                   className="inline-block bg-transparent text-foreground font-mono text-sm uppercase tracking-[0.2em] px-8 md:px-10 py-4 md:py-5 border border-border hover:border-foreground hover:text-foreground transition-colors duration-300 text-center">
-                  eBook
-                </a>
+              <div className="flex flex-col sm:flex-row gap-8">
+                {/* Paperback */}
+                <div className="flex flex-col gap-2">
+                  <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-1">Paperback</p>
+                  <a href="https://www.amazon.com.au/Insect-Kin-Matthew-Tait/dp/B0G4GZLPTM/ref=tmm_pap_swatch_0"
+                     target="_blank" rel="noopener noreferrer"
+                     className="inline-block bg-primary text-primary-foreground font-mono text-xs uppercase tracking-[0.2em] px-6 py-3 hover:bg-foreground hover:text-background transition-colors duration-300 text-center">
+                    Amazon AU
+                  </a>
+                  <a href="https://www.amazon.com/Insect-Kin-Matthew-Tait/dp/B0G4GZLPTM/ref=tmm_pap_swatch_0"
+                     target="_blank" rel="noopener noreferrer"
+                     className="inline-block bg-transparent text-foreground font-mono text-xs uppercase tracking-[0.2em] px-6 py-3 border border-border hover:border-foreground transition-colors duration-300 text-center">
+                    Amazon US
+                  </a>
+                </div>
+                {/* eBook */}
+                <div className="flex flex-col gap-2">
+                  <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-1">eBook</p>
+                  <a href="https://www.amazon.com.au/Insect-Kin-Matthew-Tait-ebook/dp/B0G47SQVG2/?_encoding=UTF8&pd_rd_w=myzgf&content-id=amzn1.sym.7153b2d3-487c-46f2-9cd8-b060e652f2e8&pf_rd_p=7153b2d3-487c-46f2-9cd8-b060e652f2e8&pf_rd_r=355-7962748-1400305&pd_rd_wg=vDNLQ&pd_rd_r=f63a9248-af4f-4647-acb6-09becc57e6fd"
+                     target="_blank" rel="noopener noreferrer"
+                     className="inline-block bg-primary text-primary-foreground font-mono text-xs uppercase tracking-[0.2em] px-6 py-3 hover:bg-foreground hover:text-background transition-colors duration-300 text-center">
+                    Amazon AU
+                  </a>
+                  <a href="https://www.amazon.com/Insect-Kin-Matthew-Tait-ebook/dp/B0G47SQVG2/?_encoding=UTF8&pd_rd_w=H1KLg&content-id=amzn1.sym.f8e88413-4697-42ea-9bf7-b28eb886330d&pf_rd_p=f8e88413-4697-42ea-9bf7-b28eb886330d&pf_rd_r=146-7900009-4224238&pd_rd_wg=TROgF&pd_rd_r=052d5ae5-2cca-453a-b2ba-e6dcbf366acc"
+                     target="_blank" rel="noopener noreferrer"
+                     className="inline-block bg-transparent text-foreground font-mono text-xs uppercase tracking-[0.2em] px-6 py-3 border border-border hover:border-foreground transition-colors duration-300 text-center">
+                    Amazon US
+                  </a>
+                </div>
               </div>
             </div>
           </FadeIn>
