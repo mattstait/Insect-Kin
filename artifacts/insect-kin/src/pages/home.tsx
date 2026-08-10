@@ -9,7 +9,7 @@ import rooftop from '@assets/ChatGPT_Image_Aug_10,_2026,_05_05_14_AM_17863045143
 import dragonfly from '@assets/ChatGPT_Image_Aug_9,_2026,_03_06_56_PM_1786253850408.png';
 import coverImage from '@assets/insect-kin_2_1786244795412.jpg';
 import darkCribLogo from '@assets/Dark_Crib_Publishing_1_1786329845958.jpg';
-import authorPhoto from '@assets/Paper_23_1786245757626.jpg';
+import authorPhoto from '@assets/Paper_231_1786331879589.jpg';
 
 // ─── Insect SVGs ────────────────────────────────────────────────────────────
 
@@ -713,7 +713,7 @@ export default function Home() {
           <FadeIn>
             <div className="relative">
               <img src={authorPhoto} alt="Matthew Tait"
-                className="w-full max-w-xs grayscale contrast-110 border border-border/40 shadow-[0_20px_60px_rgba(0,0,0,0.6)]" />
+                className="w-full max-w-xs border border-border/40 shadow-[0_20px_60px_rgba(0,0,0,0.6)]" />
               <p className="font-mono text-xs tracking-[0.2em] text-muted-foreground uppercase mt-4">
                 Matthew Tait — Adelaide, South Australia
               </p>
