@@ -277,7 +277,55 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. ASHBROOK COURT */}
+      {/* 3. REVIEWS */}
+      <section className="py-24 md:py-32 px-6 border-t border-border relative"
+               style={{ backgroundColor: 'hsl(38 10% 7%)' }}>
+        {/* Small insects in the margins */}
+        <FloatAnim baseRotation={12} duration={7} delay={1} yRange={9} className="top-10 left-6 z-10">
+          <InsectFlySVG size={32} opacity={0.68} />
+        </FloatAnim>
+        <FloatAnim baseRotation={-20} duration={6} delay={0} yRange={8} className="bottom-10 right-8 z-10">
+          <InsectFlySVG size={28} opacity={0.60} />
+        </FloatAnim>
+
+        <div className="max-w-6xl mx-auto relative z-10">
+          <FadeIn>
+            <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mb-16 text-center">
+              Readers on Insect Kin
+            </h2>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+            {/* Review 1 */}
+            <FadeIn delay={0.1}>
+              <div className="flex flex-col h-full border-l-2 pl-8" style={{ borderColor: 'hsl(var(--primary))' }}>
+                <span className="font-serif text-6xl leading-none mb-6" style={{ color: 'hsl(var(--primary))', opacity: 0.6 }}>&ldquo;</span>
+                <p className="font-sans text-base md:text-lg leading-relaxed text-foreground font-normal flex-1">
+                  Wyndham's <em>The Day of the Triffids</em> meets Ballard's <em>High-Rise</em> played out in suburban Adelaide. While the title is taken from a song by Bush, this horror story had me hearing <em>Come to Daddy</em> by Aphex Twin accompanied by the fluttering of countless chitin wings. Against the backdrop of the pandemic, Matthew Tait offers us this nightmarish tale set in an abandoned housing estate undergoing a metamorphosis.
+                </p>
+                <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mt-8">
+                  — Amazon Review
+                </p>
+              </div>
+            </FadeIn>
+
+            {/* Review 2 */}
+            <FadeIn delay={0.25}>
+              <div className="flex flex-col h-full border-l-2 pl-8" style={{ borderColor: 'hsl(var(--primary))' }}>
+                <span className="font-serif text-6xl leading-none mb-6" style={{ color: 'hsl(var(--primary))', opacity: 0.6 }}>&ldquo;</span>
+                <p className="font-sans text-base md:text-lg leading-relaxed text-foreground font-normal flex-1">
+                  Matthew Tait creates his own version of the Candyman in this short but powerful story about a supernatural executioner of Adelaide's social underbelly. Tait draws shades of Bentley Little and Richard Laymon for his violent and gritty tale, which for the most part feels strangely akin to Adelaide's own shocking true crime past.
+                </p>
+                <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground mt-8">
+                  — Amazon Review
+                </p>
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. ASHBROOK COURT */}
       <section
         className="py-24 px-6 border-t border-border relative"
         style={{ backgroundColor: 'hsl(var(--section-forest))' }}
