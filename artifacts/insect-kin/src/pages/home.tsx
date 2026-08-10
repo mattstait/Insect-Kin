@@ -97,7 +97,10 @@ function InsectFlySVG({ size = 48, opacity = 0.88 }: { size?: number; opacity?: 
   );
 }
 
-/** Wraps an insect in a gentle, perpetual floating animation */
+/** Wraps an insect in a gentle, perpetual floating animation.
+ *  Insects stay invisible for 2 s after mount so they don't jitter
+ *  over a still-loading hero on slow connections.
+ */
 function FloatAnim({
   children,
   duration = 7,
@@ -115,20 +118,35 @@ function FloatAnim({
   baseRotation?: number;
   className?: string;
 }) {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const id = setTimeout(() => setReady(true), 2000);
+    return () => clearTimeout(id);
+  }, []);
+
   return (
     <motion.div
       className={`absolute pointer-events-none select-none ${className}`}
-      style={{ rotate: baseRotation }}
-      animate={{
-        y: [0, -yRange, 0],
-        rotate: [baseRotation, baseRotation + rotRange, baseRotation - rotRange, baseRotation],
-      }}
-      transition={{
-        duration,
-        delay,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      }}
+      initial={{ opacity: 0, rotate: baseRotation }}
+      animate={
+        ready
+          ? {
+              opacity: 1,
+              y: [0, -yRange, 0],
+              rotate: [baseRotation, baseRotation + rotRange, baseRotation - rotRange, baseRotation],
+            }
+          : { opacity: 0, rotate: baseRotation }
+      }
+      transition={
+        ready
+          ? {
+              opacity: { duration: 0.8, ease: 'easeOut' },
+              y: { duration, delay, repeat: Infinity, ease: 'easeInOut' },
+              rotate: { duration, delay, repeat: Infinity, ease: 'easeInOut' },
+            }
+          : { duration: 0 }
+      }
     >
       {children}
     </motion.div>
