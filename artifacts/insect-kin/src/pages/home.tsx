@@ -8,6 +8,7 @@ import windowImg from '@assets/generated_images/window.jpg';
 import rooftop from '@assets/ChatGPT_Image_Aug_10,_2026,_05_05_14_AM_1786304514365.png';
 import dragonfly from '@assets/ChatGPT_Image_Aug_9,_2026,_03_06_56_PM_1786253850408.png';
 import coverImage from '@assets/insect-kin_2_1786244795412.jpg';
+import darkCribLogo from '@assets/Dark_Crib_Publishing_1_1786329845958.jpg';
 import authorPhoto from '@assets/Paper_23_1786245757626.jpg';
 
 // ─── Insect SVGs ────────────────────────────────────────────────────────────
@@ -577,6 +578,15 @@ export default function Home() {
           © {new Date().getFullYear()} Matthew Tait. All rights reserved.
         </p>
         <p className="mt-4 opacity-50 relative z-10">The horror is already here.</p>
+
+        <div className="mt-12 flex justify-center relative z-10">
+          <img
+            src={darkCribLogo}
+            alt="Dark Crib Publications"
+            className="w-36 md:w-44"
+            style={{ mixBlendMode: 'screen', opacity: 0.85 }}
+          />
+        </div>
       </footer>
 
     </main>
