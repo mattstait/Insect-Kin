@@ -196,6 +196,7 @@ const NAV_LINKS = [
 function StickyNav() {
   const [visible, setVisible] = useState(false);
   const [activeId, setActiveId] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
@@ -205,6 +206,20 @@ function StickyNav() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  // Close overlay on Escape key
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMenuOpen(false); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [menuOpen]);
+
+  // Prevent body scroll while overlay is open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
 
   // Track which section is in view
   useEffect(() => {
@@ -231,66 +246,172 @@ function StickyNav() {
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
+    setMenuOpen(false);
     const target = document.querySelector(href);
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Small delay so overlay can start closing before scroll
+      setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
     }
   };
 
   return (
-    <motion.header
-      aria-label="Section navigation"
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : -8 }}
-      transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-      style={{
-        pointerEvents: visible ? 'auto' : 'none',
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 50,
-        borderBottom: '1px solid hsl(var(--border))',
-        backgroundColor: 'hsl(var(--background) / 0.85)',
-        backdropFilter: 'blur(12px) saturate(0.9)',
-        WebkitBackdropFilter: 'blur(12px) saturate(0.9)',
-      }}
-    >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-11">
-        {/* Brand mark — left */}
-        <span
-          className="font-mono text-[10px] uppercase tracking-[0.25em] shrink-0"
-          style={{ color: 'hsl(var(--muted-foreground))' }}
-        >
-          Insect Kin
-        </span>
+    <>
+      <motion.header
+        aria-label="Section navigation"
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : -8 }}
+        transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+        style={{
+          pointerEvents: visible ? 'auto' : 'none',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          borderBottom: '1px solid hsl(var(--border))',
+          backgroundColor: 'hsl(var(--background) / 0.85)',
+          backdropFilter: 'blur(12px) saturate(0.9)',
+          WebkitBackdropFilter: 'blur(12px) saturate(0.9)',
+        }}
+      >
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-11">
+          {/* Brand mark — left */}
+          <span
+            className="font-mono text-[10px] uppercase tracking-[0.25em] shrink-0"
+            style={{ color: 'hsl(var(--muted-foreground))' }}
+          >
+            Insect Kin
+          </span>
 
-        {/* Links — horizontally scrollable on mobile, static row on desktop */}
-        <div className="flex items-center gap-1 overflow-x-auto no-scrollbar ml-4">
-          {NAV_LINKS.map(({ label, href }) => {
+          {/* Hamburger button — only on screens < 480 px */}
+          <button
+            type="button"
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(o => !o)}
+            className="flex flex-col justify-center items-center gap-[5px] w-8 h-8 shrink-0 ml-4 max-[479px]:flex min-[480px]:hidden"
+            style={{ color: 'hsl(var(--muted-foreground))' }}
+          >
+            <motion.span
+              animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.25 }}
+              className="block w-5 h-[1px] bg-current origin-center"
+            />
+            <motion.span
+              animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
+              transition={{ duration: 0.15 }}
+              className="block w-5 h-[1px] bg-current"
+            />
+            <motion.span
+              animate={menuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.25 }}
+              className="block w-5 h-[1px] bg-current origin-center"
+            />
+          </button>
+
+          {/* Links — horizontally scrollable on mobile ≥480px, static row on desktop; hidden < 480px */}
+          <div className="hidden min-[480px]:flex items-center gap-1 overflow-x-auto no-scrollbar ml-4">
+            {NAV_LINKS.map(({ label, href }) => {
+              const isActive = activeId === href.slice(1);
+              return (
+                <a
+                  key={href}
+                  href={href}
+                  onClick={(e) => handleClick(e, href)}
+                  className="shrink-0 font-mono text-[10px] uppercase tracking-[0.22em] px-3 py-1.5 transition-colors duration-200"
+                  style={{
+                    color: isActive
+                      ? 'hsl(var(--foreground))'
+                      : 'hsl(var(--muted-foreground))',
+                    borderBottom: isActive
+                      ? '1px solid hsl(var(--primary))'
+                      : '1px solid transparent',
+                  }}
+                >
+                  {label}
+                </a>
+              );
+            })}
+          </div>
+        </nav>
+      </motion.header>
+
+      {/* Full-screen overlay menu — mobile only (< 480 px) */}
+      <motion.div
+        aria-modal="true"
+        role="dialog"
+        aria-label="Navigation menu"
+        initial={false}
+        animate={menuOpen ? { opacity: 1, pointerEvents: 'auto' as const } : { opacity: 0, pointerEvents: 'none' as const }}
+        transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 49,
+          backgroundColor: 'hsl(var(--background))',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '0',
+        }}
+        className="min-[480px]:hidden"
+      >
+        {/* Subtle border top that aligns with the nav bar */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '44px',
+            borderBottom: '1px solid hsl(var(--border))',
+          }}
+        />
+        <nav className="flex flex-col items-center gap-0 w-full">
+          {NAV_LINKS.map(({ label, href }, i) => {
             const isActive = activeId === href.slice(1);
             return (
-              <a
+              <motion.a
                 key={href}
                 href={href}
                 onClick={(e) => handleClick(e, href)}
-                className="shrink-0 font-mono text-[10px] uppercase tracking-[0.22em] px-3 py-1.5 transition-colors duration-200"
+                initial={false}
+                animate={menuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+                transition={{ duration: 0.3, delay: menuOpen ? i * 0.06 : 0, ease: [0.25, 0.1, 0.25, 1] }}
+                className="w-full text-center font-mono uppercase tracking-[0.3em] py-6 border-b transition-colors duration-200"
                 style={{
+                  fontSize: '0.9rem',
+                  borderColor: 'hsl(var(--border))',
                   color: isActive
                     ? 'hsl(var(--foreground))'
                     : 'hsl(var(--muted-foreground))',
-                  borderBottom: isActive
-                    ? '1px solid hsl(var(--primary))'
-                    : '1px solid transparent',
+                  backgroundColor: isActive
+                    ? 'hsl(var(--background) / 0.6)'
+                    : 'transparent',
                 }}
               >
                 {label}
-              </a>
+                {isActive && (
+                  <span
+                    aria-hidden
+                    style={{
+                      display: 'inline-block',
+                      width: '4px',
+                      height: '4px',
+                      borderRadius: '50%',
+                      backgroundColor: 'hsl(var(--primary))',
+                      marginLeft: '10px',
+                      verticalAlign: 'middle',
+                    }}
+                  />
+                )}
+              </motion.a>
             );
           })}
-        </div>
-      </nav>
-    </motion.header>
+        </nav>
+      </motion.div>
+    </>
   );
 }
 
