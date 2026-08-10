@@ -219,13 +219,19 @@ export default function Home() {
               Matthew Tait
             </p>
           </motion.div>
+          {/* ── Hero tagline ──────────────────────────────────────────────────────
+              Replace the string below with the final one-line tagline.
+              font-sans = Lora in this project's token map; italic keeps it
+              subdued against the bold title above.
+          ─────────────────────────────────────────────────────────────────── */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 2, delay: 1.2 }}
+            transition={{ duration: 2, delay: 1.5 }}
           >
-            <p className="font-sans italic text-base md:text-lg tracking-wide mt-6"
-               style={{ color: 'hsl(42 20% 62%)' }}>
+            <p className="font-sans italic text-base md:text-xl tracking-wide mt-6"
+               style={{ color: 'hsl(42 20% 60%)' }}>
+              {/* TODO: replace with your final tagline */}
               Something is growing beneath Ashbrook Court.
             </p>
           </motion.div>
