@@ -1,15 +1,15 @@
 import { type ReactNode, useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 
-import heroEstate from '@assets/generated_images/hero-estate.jpg';
-import stairwell from '@assets/generated_images/stairwell.jpg';
-import asphalt from '@assets/ChatGPT_Image_Aug_9,_2026,_03_01_38_PM_1786253514550.png';
-import windowImg from '@assets/generated_images/window.jpg';
-import rooftop from '@assets/ChatGPT_Image_Aug_10,_2026,_05_05_14_AM_1786304514365.png';
-import dragonfly from '@assets/ChatGPT_Image_Aug_9,_2026,_03_06_56_PM_1786253850408.png';
-import coverImage from '@assets/insect-kin_2_1786244795412.jpg';
-import darkCribLogo from '@assets/Dark_Crib_Publishing_1_1786329845958.jpg';
-import authorPhoto from '@assets/Paper_231_1786331879589.jpg';
+import heroEstate from '@assets/optimised/hero-estate.webp';
+import stairwell from '@assets/optimised/stairwell.webp';
+import asphalt from '@assets/optimised/asphalt.webp';
+import windowImg from '@assets/optimised/window.webp';
+import rooftop from '@assets/optimised/rooftop.webp';
+import dragonfly from '@assets/optimised/dragonfly.webp';
+import coverImage from '@assets/optimised/cover.webp';
+import darkCribLogo from '@assets/optimised/dark-crib-logo.webp';
+import authorPhoto from '@assets/optimised/author-photo.webp';
 
 // ─── Insect SVGs ────────────────────────────────────────────────────────────
 
@@ -194,7 +194,7 @@ function FadeIn({ children, delay = 0 }: { children: ReactNode; delay?: number }
   );
 }
 
-function ParallaxImage({ src, alt, className }: { src: string; alt: string; className?: string }) {
+function ParallaxImage({ src, alt, className, loading = 'lazy' }: { src: string; alt: string; className?: string; loading?: 'lazy' | 'eager' }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
   const y = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
@@ -203,6 +203,7 @@ function ParallaxImage({ src, alt, className }: { src: string; alt: string; clas
       <motion.img
         src={src}
         alt={alt}
+        loading={loading}
         style={{ y, scale: 1.1 }}
         className="absolute inset-0 w-full h-full object-cover"
       />
@@ -620,7 +621,7 @@ export default function Home() {
       <section id="hero" className="relative h-[100dvh] w-full flex items-center justify-center border-b border-border">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 overflow-hidden">
-            <ParallaxImage src={heroEstate} alt="Ashbrook Court at night" className="w-full h-full" />
+            <ParallaxImage src={heroEstate} alt="Ashbrook Court at night" className="w-full h-full" loading="eager" />
             <div className="absolute inset-0" style={{ backgroundColor: 'hsl(80 55% 10%)', mixBlendMode: 'multiply', opacity: 0.55 }} />
             <div className="absolute inset-0" style={{ backgroundColor: 'transparent', backdropFilter: 'saturate(0.4) hue-rotate(20deg)' }} />
           </div>
@@ -1026,7 +1027,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start relative z-10">
           <FadeIn>
             <div className="relative">
-              <img src={authorPhoto} alt="Matthew Tait"
+              <img src={authorPhoto} alt="Matthew Tait" loading="lazy"
                 className="w-full max-w-xs border border-border/40 shadow-[0_20px_60px_rgba(0,0,0,0.6)]" />
               <p className="font-mono text-xs tracking-[0.2em] text-muted-foreground uppercase mt-4">
                 Matthew Tait — Adelaide, South Australia
@@ -1184,7 +1185,7 @@ export default function Home() {
 
         <div className="relative z-10 max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-10 md:gap-24">
           <FadeIn>
-            <img src={coverImage} alt="Insect Kin Cover"
+            <img src={coverImage} alt="Insect Kin Cover" loading="lazy"
               className="w-full max-w-[200px] md:max-w-xs shadow-[0_20px_50px_rgba(0,0,0,0.6)] border border-border/30" />
           </FadeIn>
           <FadeIn delay={0.2}>
@@ -1266,6 +1267,7 @@ export default function Home() {
           <img
             src={darkCribLogo}
             alt="Dark Crib Publications"
+            loading="lazy"
             className="w-36 md:w-44"
             style={{ mixBlendMode: 'screen', opacity: 0.85 }}
           />
