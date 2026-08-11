@@ -1,5 +1,5 @@
 import { type ReactNode, useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 
 import heroEstate from '@assets/generated_images/hero-estate.jpg';
 import stairwell from '@assets/generated_images/stairwell.jpg';
@@ -194,6 +194,15 @@ function StickyNav() {
   const [activeId, setActiveId] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Refs for focus management
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  // Track whether the overlay was ever opened so we only return focus after a real close
+  const wasOpenRef = useRef(false);
+
+  // Respect prefers-reduced-motion system setting
+  const reducedMotion = useReducedMotion();
+
   useEffect(() => {
     const onScroll = () => {
       // Show nav after 60 % of viewport height has been scrolled past
@@ -215,6 +224,46 @@ function StickyNav() {
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
+  // Focus management: trap focus inside overlay while open; return to trigger on close
+  useEffect(() => {
+    if (menuOpen) {
+      wasOpenRef.current = true;
+      // Move focus to the first link in the overlay
+      const firstLink = overlayRef.current?.querySelector<HTMLElement>('a[href]');
+      firstLink?.focus();
+
+      // Tab / Shift+Tab trap
+      const handleTab = (e: KeyboardEvent) => {
+        if (e.key !== 'Tab') return;
+        const focusables = Array.from(
+          overlayRef.current?.querySelectorAll<HTMLElement>('a[href]') ?? [],
+        );
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      };
+
+      document.addEventListener('keydown', handleTab);
+      return () => document.removeEventListener('keydown', handleTab);
+    }
+    // Return focus to the hamburger trigger when the overlay closes
+    if (wasOpenRef.current) {
+      triggerRef.current?.focus();
+    }
+    return undefined;
   }, [menuOpen]);
 
   // Track which section is in view
@@ -245,18 +294,32 @@ function StickyNav() {
     setMenuOpen(false);
     const target = document.querySelector(href);
     if (target) {
-      // Small delay so overlay can start closing before scroll
-      setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+      // Small delay so overlay can start closing before scroll;
+      // use instant scroll when the user prefers reduced motion
+      setTimeout(
+        () => target.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth', block: 'start' }),
+        60,
+      );
     }
   };
+
+  // Transition helpers that collapse to instant when reduced-motion is preferred
+  const navTransition = reducedMotion
+    ? { duration: 0 }
+    : { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const };
+  const barTransition = reducedMotion ? { duration: 0 } : { duration: 0.25 };
+  const midBarTransition = reducedMotion ? { duration: 0 } : { duration: 0.15 };
+  const overlayTransition = reducedMotion
+    ? { duration: 0 }
+    : { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const };
 
   return (
     <>
       <motion.header
         aria-label="Section navigation"
-        initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : -8 }}
-        transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+        initial={{ opacity: 0, y: reducedMotion ? 0 : -8 }}
+        animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : (reducedMotion ? 0 : -8) }}
+        transition={navTransition}
         style={{
           pointerEvents: visible ? 'auto' : 'none',
           position: 'fixed',
@@ -281,26 +344,28 @@ function StickyNav() {
 
           {/* Hamburger button — only on screens < 480 px */}
           <button
+            ref={triggerRef}
             type="button"
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
+            aria-controls="mobile-nav-overlay"
             onClick={() => setMenuOpen(o => !o)}
             className="flex flex-col justify-center items-center gap-[5px] w-8 h-8 shrink-0 ml-4 max-[479px]:flex min-[480px]:hidden"
             style={{ color: 'hsl(var(--muted-foreground))' }}
           >
             <motion.span
               animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
-              transition={{ duration: 0.25 }}
+              transition={barTransition}
               className="block w-5 h-[1px] bg-current origin-center"
             />
             <motion.span
               animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-              transition={{ duration: 0.15 }}
+              transition={midBarTransition}
               className="block w-5 h-[1px] bg-current"
             />
             <motion.span
               animate={menuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
-              transition={{ duration: 0.25 }}
+              transition={barTransition}
               className="block w-5 h-[1px] bg-current origin-center"
             />
           </button>
@@ -334,12 +399,15 @@ function StickyNav() {
 
       {/* Full-screen overlay menu — mobile only (< 480 px) */}
       <motion.div
-        aria-modal="true"
-        role="dialog"
-        aria-label="Navigation menu"
+        ref={overlayRef}
+        id="mobile-nav-overlay"
+        role={menuOpen ? 'dialog' : undefined}
+        aria-modal={menuOpen ? true : undefined}
+        aria-label={menuOpen ? 'Navigation menu' : undefined}
+        aria-hidden={!menuOpen}
         initial={false}
         animate={menuOpen ? { opacity: 1, pointerEvents: 'auto' as const } : { opacity: 0, pointerEvents: 'none' as const }}
-        transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+        transition={overlayTransition}
         style={{
           position: 'fixed',
           inset: 0,
@@ -371,10 +439,20 @@ function StickyNav() {
               <motion.a
                 key={href}
                 href={href}
+                // Hidden from keyboard when the overlay is not open
+                tabIndex={menuOpen ? 0 : -1}
                 onClick={(e) => handleClick(e, href)}
                 initial={false}
-                animate={menuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-                transition={{ duration: 0.3, delay: menuOpen ? i * 0.06 : 0, ease: [0.25, 0.1, 0.25, 1] }}
+                animate={
+                  menuOpen
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: reducedMotion ? 0 : 12 }
+                }
+                transition={
+                  reducedMotion
+                    ? { duration: 0 }
+                    : { duration: 0.3, delay: menuOpen ? i * 0.06 : 0, ease: [0.25, 0.1, 0.25, 1] }
+                }
                 className="w-full text-center font-mono uppercase tracking-[0.3em] py-6 border-b transition-colors duration-200"
                 style={{
                   fontSize: '0.9rem',
