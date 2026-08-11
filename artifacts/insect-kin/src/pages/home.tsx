@@ -2,14 +2,56 @@ import { type ReactNode, useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 
 import heroEstate from '@assets/optimised/hero-estate.webp';
+import heroEstate640 from '@assets/optimised/hero-estate-640w.webp';
+import heroEstate750 from '@assets/optimised/hero-estate-750w.webp';
+import heroEstate828 from '@assets/optimised/hero-estate-828w.webp';
 import stairwell from '@assets/optimised/stairwell.webp';
+import stairwell640 from '@assets/optimised/stairwell-640w.webp';
+import stairwell750 from '@assets/optimised/stairwell-750w.webp';
+import stairwell828 from '@assets/optimised/stairwell-828w.webp';
 import asphalt from '@assets/optimised/asphalt.webp';
+import asphalt640 from '@assets/optimised/asphalt-640w.webp';
+import asphalt750 from '@assets/optimised/asphalt-750w.webp';
+import asphalt828 from '@assets/optimised/asphalt-828w.webp';
+import asphalt1024 from '@assets/optimised/asphalt-1024w.webp';
+import asphalt1200 from '@assets/optimised/asphalt-1200w.webp';
 import windowImg from '@assets/optimised/window.webp';
+import windowImg640 from '@assets/optimised/window-640w.webp';
+import windowImg750 from '@assets/optimised/window-750w.webp';
+import windowImg828 from '@assets/optimised/window-828w.webp';
 import rooftop from '@assets/optimised/rooftop.webp';
+import rooftop640 from '@assets/optimised/rooftop-640w.webp';
+import rooftop750 from '@assets/optimised/rooftop-750w.webp';
+import rooftop828 from '@assets/optimised/rooftop-828w.webp';
+import rooftop1024 from '@assets/optimised/rooftop-1024w.webp';
+import rooftop1290 from '@assets/optimised/rooftop-1290w.webp';
 import dragonfly from '@assets/optimised/dragonfly.webp';
+import dragonfly640 from '@assets/optimised/dragonfly-640w.webp';
+import dragonfly750 from '@assets/optimised/dragonfly-750w.webp';
+import dragonfly828 from '@assets/optimised/dragonfly-828w.webp';
+import dragonfly1024 from '@assets/optimised/dragonfly-1024w.webp';
+import dragonfly1200 from '@assets/optimised/dragonfly-1200w.webp';
 import coverImage from '@assets/optimised/cover.webp';
+import coverImage640 from '@assets/optimised/cover-640w.webp';
+import coverImage1024 from '@assets/optimised/cover-1024w.webp';
 import darkCribLogo from '@assets/optimised/dark-crib-logo.webp';
+import darkCribLogo640 from '@assets/optimised/dark-crib-logo-640w.webp';
+import darkCribLogo1024 from '@assets/optimised/dark-crib-logo-1024w.webp';
 import authorPhoto from '@assets/optimised/author-photo.webp';
+import authorPhoto640 from '@assets/optimised/author-photo-640w.webp';
+import authorPhoto1024 from '@assets/optimised/author-photo-1024w.webp';
+
+// ─── Hero preload — fires at module-parse time (before React renders) so the
+// browser can start fetching the LCP image as early as possible.
+if (typeof document !== 'undefined') {
+  const _preload = document.createElement('link');
+  _preload.rel = 'preload';
+  _preload.as = 'image';
+  _preload.setAttribute('imagesrcset', `${heroEstate640} 640w, ${heroEstate750} 750w, ${heroEstate828} 828w, ${heroEstate} 1024w`);
+  _preload.setAttribute('imagesizes', '100vw');
+  _preload.setAttribute('fetchpriority', 'high');
+  document.head.appendChild(_preload);
+}
 
 // ─── Insect SVGs ────────────────────────────────────────────────────────────
 
@@ -212,7 +254,12 @@ function FadeIn({ children, delay = 0 }: { children: ReactNode; delay?: number }
   );
 }
 
-function ParallaxImage({ src, alt, className, loading = 'lazy' }: { src: string; alt: string; className?: string; loading?: 'lazy' | 'eager' }) {
+function ParallaxImage({
+  src, alt, className, loading = 'lazy', srcSet, sizes,
+}: {
+  src: string; alt: string; className?: string; loading?: 'lazy' | 'eager';
+  srcSet?: string; sizes?: string;
+}) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
   const y = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
@@ -222,6 +269,8 @@ function ParallaxImage({ src, alt, className, loading = 'lazy' }: { src: string;
         src={src}
         alt={alt}
         loading={loading}
+        srcSet={srcSet}
+        sizes={sizes}
         style={{ y, scale: 1.1 }}
         className="absolute inset-0 w-full h-full object-cover"
       />
@@ -557,7 +606,14 @@ export default function Home() {
       <section id="hero" className="relative h-[100dvh] w-full flex items-center justify-center border-b border-border">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 overflow-hidden">
-            <ParallaxImage src={heroEstate} alt="Ashbrook Court at night" className="w-full h-full" loading="eager" />
+            <ParallaxImage
+                src={heroEstate}
+                alt="Ashbrook Court at night"
+                className="w-full h-full"
+                loading="eager"
+                srcSet={`${heroEstate640} 640w, ${heroEstate750} 750w, ${heroEstate828} 828w, ${heroEstate} 1024w`}
+                sizes="100vw"
+              />
             <div className="absolute inset-0" style={{ backgroundColor: 'hsl(80 55% 10%)', mixBlendMode: 'multiply', opacity: 0.55 }} />
             <div className="absolute inset-0" style={{ backgroundColor: 'transparent', backdropFilter: 'saturate(0.4) hue-rotate(20deg)' }} />
           </div>
@@ -812,7 +868,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
           <FadeIn>
             <ParallaxImage src={stairwell} alt="A claustrophobic concrete stairwell"
-              className="aspect-[4/5] w-full bg-muted border border-border" />
+              className="aspect-[4/5] w-full bg-muted border border-border"
+              srcSet={`${stairwell640} 640w, ${stairwell750} 750w, ${stairwell828} 828w, ${stairwell} 1024w`}
+              sizes="(min-width: 1024px) 50vw, 100vw" />
           </FadeIn>
           <div className="flex flex-col justify-center">
             <FadeIn>
@@ -861,6 +919,8 @@ export default function Home() {
               src={rooftop}
               alt="The rooftop of Ashbrook Court at night"
               className="w-full aspect-[16/9] md:aspect-[21/9] border border-border"
+              srcSet={`${rooftop640} 640w, ${rooftop750} 750w, ${rooftop828} 828w, ${rooftop1024} 1024w, ${rooftop1290} 1290w, ${rooftop} 1536w`}
+              sizes="(min-width: 1024px) 90vw, 100vw"
             />
           </FadeIn>
         </div>
@@ -886,11 +946,15 @@ export default function Home() {
           <div className="order-1 lg:order-2 grid grid-cols-2 gap-4">
             <FadeIn delay={0.2}>
               <ParallaxImage src={asphalt} alt="Cracked asphalt and dead grass"
-                className="aspect-square w-full bg-muted border border-border mt-12" />
+                className="aspect-square w-full bg-muted border border-border mt-12"
+                srcSet={`${asphalt640} 640w, ${asphalt750} 750w, ${asphalt828} 828w, ${asphalt1024} 1024w, ${asphalt1200} 1200w, ${asphalt} 1254w`}
+                sizes="(min-width: 1024px) 25vw, 50vw" />
             </FadeIn>
             <FadeIn delay={0.4}>
               <ParallaxImage src={windowImg} alt="A single glowing window at night"
-                className="aspect-square w-full bg-muted border border-border" />
+                className="aspect-square w-full bg-muted border border-border"
+                srcSet={`${windowImg640} 640w, ${windowImg750} 750w, ${windowImg828} 828w, ${windowImg} 1024w`}
+                sizes="(min-width: 1024px) 25vw, 50vw" />
             </FadeIn>
           </div>
         </div>
@@ -934,7 +998,9 @@ export default function Home() {
           <div className="w-full max-w-4xl mb-12 md:mb-16">
             <FadeIn delay={0.2}>
               <ParallaxImage src={dragonfly} alt="A dragonfly on a rusted railing"
-                className="aspect-[16/9] md:aspect-[21/9] w-full bg-muted border border-border" />
+                className="aspect-[16/9] md:aspect-[21/9] w-full bg-muted border border-border"
+                srcSet={`${dragonfly640} 640w, ${dragonfly750} 750w, ${dragonfly828} 828w, ${dragonfly1024} 1024w, ${dragonfly1200} 1200w, ${dragonfly} 1254w`}
+                sizes="(min-width: 1024px) 60vw, 100vw" />
             </FadeIn>
           </div>
           <FadeIn delay={0.4}>
@@ -964,6 +1030,8 @@ export default function Home() {
           <FadeIn>
             <div className="relative">
               <img src={authorPhoto} alt="Matthew Tait" loading="lazy"
+                srcSet={`${authorPhoto640} 640w, ${authorPhoto1024} 1024w, ${authorPhoto} 2304w`}
+                sizes="320px"
                 className="w-full max-w-xs border border-border/40 shadow-[0_20px_60px_rgba(0,0,0,0.6)]" />
               <p className="font-mono text-xs tracking-[0.2em] text-muted-foreground uppercase mt-4">
                 Matthew Tait — Adelaide, South Australia
@@ -1012,6 +1080,8 @@ export default function Home() {
         <div className="relative z-10 max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-10 md:gap-24">
           <FadeIn>
             <img src={coverImage} alt="Insect Kin Cover" loading="lazy"
+              srcSet={`${coverImage640} 640w, ${coverImage1024} 1024w, ${coverImage} 2480w`}
+              sizes="(min-width: 768px) 320px, 200px"
               className="w-full max-w-[200px] md:max-w-xs shadow-[0_20px_50px_rgba(0,0,0,0.6)] border border-border/30" />
           </FadeIn>
           <FadeIn delay={0.2}>
@@ -1093,6 +1163,8 @@ export default function Home() {
             src={darkCribLogo}
             alt="Dark Crib Publications"
             loading="lazy"
+            srcSet={`${darkCribLogo640} 640w, ${darkCribLogo1024} 1024w, ${darkCribLogo} 1520w`}
+            sizes="176px"
             className="w-36 md:w-44"
             style={{ mixBlendMode: 'screen', opacity: 0.85 }}
           />
