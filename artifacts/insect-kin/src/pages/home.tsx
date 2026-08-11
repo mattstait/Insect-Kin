@@ -142,6 +142,9 @@ function FloatAnim({
   const [tabHidden, setTabHidden] = useState(
     () => typeof document !== 'undefined' && document.visibilityState === 'hidden',
   );
+  // Start as true so insects don't pause before the first intersection check
+  const [inView, setInView] = useState(true);
+  const elemRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const id = setTimeout(() => setReady(true), 2000);
@@ -156,8 +159,23 @@ function FloatAnim({
     return () => document.removeEventListener('visibilitychange', onVisibilityChange);
   }, []);
 
+  // Pause the CSS animation when the element is fully outside the viewport
+  useEffect(() => {
+    const el = elemRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { rootMargin: '0px' },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const paused = tabHidden || !inView;
+
   return (
     <div
+      ref={elemRef}
       className={`absolute pointer-events-none select-none insect-float ${className}`}
       style={{
         opacity: ready ? 1 : 0,
@@ -171,7 +189,7 @@ function FloatAnim({
         animation: ready
           ? `insect-float ${duration}s ${delay}s ease-in-out infinite`
           : 'none',
-        animationPlayState: tabHidden ? 'paused' : 'running',
+        animationPlayState: paused ? 'paused' : 'running',
       } as React.CSSProperties}
     >
       {children}
