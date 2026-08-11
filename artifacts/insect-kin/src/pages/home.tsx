@@ -348,6 +348,13 @@ export function StickyNav() {
     <>
       <motion.header
         aria-label="Section navigation"
+        aria-hidden={!visible}
+        // inert removes the header and all its descendants from the
+        // accessibility tree and prevents keyboard focus when the nav is
+        // visually hidden, giving screen-reader users the same experience
+        // as sighted users (the nav simply doesn't exist until scrolled).
+        // Pass `true` when hidden; omit the attribute (undefined) when visible.
+        inert={!visible || undefined}
         initial={{ opacity: 0, y: reducedMotion ? 0 : -8 }}
         animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : (reducedMotion ? 0 : -8) }}
         transition={navTransition}
