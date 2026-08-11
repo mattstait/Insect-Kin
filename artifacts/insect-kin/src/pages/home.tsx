@@ -411,6 +411,95 @@ function StickyNav() {
   );
 }
 
+// ─── Share Buttons ───────────────────────────────────────────────────────────
+
+const SHARE_URL  = 'https://insect-kin.replit.app/';
+const SHARE_TEXT = 'Something is growing beneath Ashbrook Court. Insect Kin by Matthew Tait — available now.';
+
+function ShareButtons() {
+  const [copied, setCopied] = useState(false);
+
+  const twitterHref = `https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_TEXT)}&url=${encodeURIComponent(SHARE_URL)}`;
+  const facebookHref = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}`;
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(SHARE_URL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* fallback: do nothing */
+    }
+  };
+
+  const btnClass =
+    'inline-flex items-center justify-center gap-2 bg-transparent text-foreground font-mono text-xs uppercase tracking-[0.2em] px-5 py-3 border border-border hover:border-foreground transition-colors duration-300 whitespace-nowrap';
+
+  return (
+    <div className="flex flex-col items-center md:items-start gap-3 mt-8 md:mt-10">
+      <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">Share</p>
+      <div className="flex flex-wrap gap-3">
+        {/* X / Twitter */}
+        <a
+          href={twitterHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Share on X / Twitter"
+          className={btnClass}
+        >
+          {/* X logo mark */}
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+          </svg>
+          X&nbsp;/&nbsp;Twitter
+        </a>
+
+        {/* Facebook */}
+        <a
+          href={facebookHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Share on Facebook"
+          className={btnClass}
+        >
+          {/* Facebook f mark */}
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.026 1.791-4.697 4.533-4.697 1.313 0 2.686.235 2.686.235v2.97h-1.513c-1.491 0-1.956.93-1.956 1.874v2.278h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z" />
+          </svg>
+          Facebook
+        </a>
+
+        {/* Copy link */}
+        <button
+          type="button"
+          onClick={handleCopy}
+          aria-label="Copy page link"
+          className={btnClass}
+        >
+          {copied ? (
+            <>
+              {/* Checkmark */}
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              Copied!
+            </>
+          ) : (
+            <>
+              {/* Link icon */}
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+              </svg>
+              Copy Link
+            </>
+          )}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 export default function Home() {
@@ -919,6 +1008,7 @@ export default function Home() {
                   </a>
                 </div>
               </div>
+              <ShareButtons />
             </div>
           </FadeIn>
         </div>
