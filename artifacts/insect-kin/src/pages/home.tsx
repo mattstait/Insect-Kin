@@ -121,10 +121,21 @@ function FloatAnim({
   className?: string;
 }) {
   const [ready, setReady] = useState(false);
+  const [tabHidden, setTabHidden] = useState(
+    () => typeof document !== 'undefined' && document.visibilityState === 'hidden',
+  );
 
   useEffect(() => {
     const id = setTimeout(() => setReady(true), 2000);
     return () => clearTimeout(id);
+  }, []);
+
+  useEffect(() => {
+    const onVisibilityChange = () => {
+      setTabHidden(document.visibilityState === 'hidden');
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', onVisibilityChange);
   }, []);
 
   return (
@@ -142,6 +153,7 @@ function FloatAnim({
         animation: ready
           ? `insect-float ${duration}s ${delay}s ease-in-out infinite`
           : 'none',
+        animationPlayState: tabHidden ? 'paused' : 'running',
       } as React.CSSProperties}
     >
       {children}
