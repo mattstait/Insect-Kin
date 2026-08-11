@@ -97,11 +97,29 @@ function InsectFlySVG({ size = 48, opacity = 0.88 }: { size?: number; opacity?: 
   );
 }
 
-/** Wraps an insect in a gentle, perpetual floating animation.
- *  Uses CSS keyframes (compositor-thread) rather than Framer Motion JS
- *  so 20+ simultaneous instances don't create per-frame JS overhead.
- *  Insects stay invisible for 2 s after mount so they don't jitter
- *  over a still-loading hero on slow connections.
+/**
+ * FloatAnim — CSS keyframe floating animation wrapper
+ *
+ * WHY CSS KEYFRAMES INSTEAD OF FRAMER MOTION:
+ * The hero section renders 20+ insect instances simultaneously. Framer Motion
+ * drives animations on the JS main thread, which causes per-frame overhead that
+ * compounds badly at that count (jank, dropped frames, compositor pressure).
+ * CSS keyframe animations run entirely on the browser's compositor thread,
+ * costing zero JS per frame regardless of how many instances are active.
+ *
+ * DO NOT replace this with <motion.div animate={...}> or useAnimate().
+ * Even a small Framer Motion refactor here will reintroduce the compositor
+ * pressure that was deliberately removed.
+ *
+ * HOW THE PARAMETERISATION WORKS:
+ * Animation values that differ per instance (yRange, rotRange, baseRotation)
+ * are passed as CSS custom properties on the element's inline style
+ * (--base-rot, --y-neg, --rot-pos, --rot-neg). The @keyframes insect-float
+ * rule (defined in index.css) reads those properties so each insect can have
+ * unique motion without separate @keyframes declarations.
+ *
+ * The 2 s opacity delay on mount prevents jitter while the hero image loads
+ * on slow connections.
  */
 function FloatAnim({
   children,

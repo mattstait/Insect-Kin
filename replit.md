@@ -36,6 +36,10 @@ _Describe the high-level user-facing capabilities of this app once they exist._
 
 _Populate as you build — explicit user instructions worth remembering across sessions._
 
+## Architecture decisions
+
+- **FloatAnim uses CSS keyframes, not Framer Motion** — The hero renders 20+ insect instances simultaneously. Framer Motion animates on the JS main thread, creating per-frame overhead that compounds at that count. CSS keyframe animations run on the compositor thread with zero JS cost per frame. Do not replace FloatAnim with `<motion.div>` or `useAnimate()`; doing so reintroduces the compositor pressure that was deliberately removed. Per-instance parameters (y-range, rotation) are passed as CSS custom properties (`--base-rot`, `--y-neg`, `--rot-pos`, `--rot-neg`) consumed by `@keyframes insect-float` in `index.css`. The rest of the page (FadeIn, ParallaxImage, StickyNav) continues to use Framer Motion normally.
+
 ## Gotchas
 
 _Populate as you build — sharp edges, "always run X before Y" rules._
