@@ -1,9 +1,38 @@
 import path from 'path';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 
 import runtimeErrorOverlay from '@replit/vite-plugin-runtime-error-modal';
+import { BOOK, OG_IMAGE_URL } from './src/data/book.ts';
+
+/**
+ * Replaces {{BOOK_*}} placeholders in index.html at both dev-serve and build
+ * time so meta tags and JSON-LD are always driven by src/data/book.ts.
+ */
+function bookMetaPlugin(): Plugin {
+  const replacements: Record<string, string> = {
+    '{{BOOK_TITLE}}':       BOOK.title,
+    '{{BOOK_DESCRIPTION}}': BOOK.description,
+    '{{BOOK_NAME}}':        BOOK.name,
+    '{{BOOK_AUTHOR}}':      BOOK.author,
+    '{{BOOK_PUBLISHER}}':   BOOK.publisher,
+    '{{BOOK_GENRE}}':       BOOK.genre,
+    '{{BOOK_LANGUAGE}}':    BOOK.language,
+    '{{BOOK_SITE_URL}}':    BOOK.siteUrl,
+    '{{BOOK_OG_IMAGE}}':    OG_IMAGE_URL,
+  };
+
+  return {
+    name: 'book-meta',
+    transformIndexHtml(html) {
+      return Object.entries(replacements).reduce(
+        (acc, [placeholder, value]) => acc.replaceAll(placeholder, value),
+        html,
+      );
+    },
+  };
+}
 
 const rawPort = process.env.PORT;
 
@@ -30,6 +59,7 @@ if (!basePath) {
 export default defineConfig({
   base: basePath,
   plugins: [
+    bookMetaPlugin(),
     react(),
     tailwindcss(),
     runtimeErrorOverlay(),
