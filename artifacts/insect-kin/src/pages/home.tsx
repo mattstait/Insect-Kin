@@ -220,7 +220,7 @@ const NAV_LINKS = [
   { label: 'Buy',     href: '#buy'     },
 ] as const;
 
-function StickyNav() {
+export function StickyNav() {
   const [visible, setVisible] = useState(false);
   const [activeId, setActiveId] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
