@@ -183,6 +183,21 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
 
+  /* ── Insect float animation ─────────────────────────────────────────────
+     CSS custom-property–driven keyframes let each insect carry its own
+     amplitude and rotation range without spawning separate @keyframes.
+     Running on the compositor thread avoids JS overhead per frame.
+  ─────────────────────────────────────────────────────────────────────── */
+  @keyframes insect-float {
+    0%, 100% { transform: translateY(0px)           rotate(var(--base-rot, 0deg)); }
+    33%       { transform: translateY(var(--y-neg, -14px)) rotate(var(--rot-pos, 3deg)); }
+    66%       { transform: translateY(var(--y-neg, -14px)) rotate(var(--rot-neg, -3deg)); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .insect-float { animation: none !important; }
+  }
+
   /* Subtle organic noise overlay — slightly more visible over warm tones */
   body::after {
     content: "";

@@ -98,6 +98,8 @@ function InsectFlySVG({ size = 48, opacity = 0.88 }: { size?: number; opacity?: 
 }
 
 /** Wraps an insect in a gentle, perpetual floating animation.
+ *  Uses CSS keyframes (compositor-thread) rather than Framer Motion JS
+ *  so 20+ simultaneous instances don't create per-frame JS overhead.
  *  Insects stay invisible for 2 s after mount so they don't jitter
  *  over a still-loading hero on slow connections.
  */
@@ -126,30 +128,24 @@ function FloatAnim({
   }, []);
 
   return (
-    <motion.div
-      className={`absolute pointer-events-none select-none ${className}`}
-      initial={{ opacity: 0, rotate: baseRotation }}
-      animate={
-        ready
-          ? {
-              opacity: 1,
-              y: [0, -yRange, 0],
-              rotate: [baseRotation, baseRotation + rotRange, baseRotation - rotRange, baseRotation],
-            }
-          : { opacity: 0, rotate: baseRotation }
-      }
-      transition={
-        ready
-          ? {
-              opacity: { duration: 0.8, ease: 'easeOut' },
-              y: { duration, delay, repeat: Infinity, ease: 'easeInOut' },
-              rotate: { duration, delay, repeat: Infinity, ease: 'easeInOut' },
-            }
-          : { duration: 0 }
-      }
+    <div
+      className={`absolute pointer-events-none select-none insect-float ${className}`}
+      style={{
+        opacity: ready ? 1 : 0,
+        transition: ready ? 'opacity 0.8s ease-out' : 'none',
+        willChange: 'transform',
+        // CSS custom properties consumed by @keyframes insect-float
+        '--base-rot': `${baseRotation}deg`,
+        '--y-neg': `-${yRange}px`,
+        '--rot-pos': `${baseRotation + rotRange}deg`,
+        '--rot-neg': `${baseRotation - rotRange}deg`,
+        animation: ready
+          ? `insect-float ${duration}s ${delay}s ease-in-out infinite`
+          : 'none',
+      } as React.CSSProperties}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -576,7 +572,7 @@ export default function Home() {
       {/* 3. EXCERPT */}
       <section className="py-24 md:py-32 px-6 border-t border-border relative"
                style={{ backgroundColor: 'hsl(30 8% 5%)' }}>
-        <FloatAnim x={18} y={-22} duration={9} delay={1}>
+        <FloatAnim duration={9} delay={1}>
           <div className="absolute top-16 right-12 opacity-40">
             <DragonflySVG size={90} />
           </div>
